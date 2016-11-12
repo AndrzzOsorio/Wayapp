@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Wayapp</string>
+    <string name="action_settings">Configuracion</string>
+    <string name="title_activity_navigation">Pantalla de navegacion</string>
+
+    <string name="navigation_drawer_open">Abrir el navegador</string>
+    <string name="navigation_drawer_close">Cerrar el navegador</string>
+    <string name="wayapp">Wayapp</string>
+    <string name="title_activity_rancheria">RancheriaActivity</string>
+</resources>
