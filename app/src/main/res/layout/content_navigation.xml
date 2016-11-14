@@ -35,7 +35,7 @@
         android:visibility="invisible" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton4"
+        android:id="@+id/acceso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

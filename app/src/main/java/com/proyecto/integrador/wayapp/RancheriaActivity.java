@@ -66,7 +66,7 @@ private ArrayList<Rancheria> rancherias = new ArrayList<>();
         builder[0].setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Rancheria r = new Rancheria(id,m_Text.toString());
+                Rancheria r = new Rancheria(id,input.getText().toString());
 
                 Intent intent = new Intent(RancheriaActivity.this,NavigationActivity.class);
                 intent.putExtra("rancheria",r);

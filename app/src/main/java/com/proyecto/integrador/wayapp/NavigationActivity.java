@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -47,10 +48,12 @@ public class NavigationActivity extends AppCompatActivity
     private GoogleMap map;
     Location location;
     ArrayList<Punto> puntos = new ArrayList<>();
+    ArrayList<Punto> via = new ArrayList<>();
     FloatingActionButton delimitar;
     FloatingActionButton elemento;
     FloatingActionButton encuesta;
     FloatingActionButton delimitarfin;
+    FloatingActionButton acceso;
     int flag = 0;
     Double lat;
     Double lon;
@@ -78,6 +81,7 @@ public class NavigationActivity extends AppCompatActivity
         elemento = (FloatingActionButton) findViewById(R.id.elemento);
         encuesta = (FloatingActionButton) findViewById(R.id.encuesta);
         delimitarfin = (FloatingActionButton) findViewById(R.id.delimitarfin);
+        acceso = (FloatingActionButton) findViewById(R.id.acceso);
         final LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         final Localizacion localizacion = new Localizacion();
         localizacion.setMainActivity(this);
@@ -144,6 +148,27 @@ public class NavigationActivity extends AppCompatActivity
                     lat=null;
                     lon=null;
                 }
+            }
+        });
+
+        acceso.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    lat=location.getLatitude();
+                    lon=location.getLongitude();
+                    flag = 1;
+                }
+                catch (Exception e){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this);
+                    builder.setMessage("No se ha podido establecer conexion con el GPS, por favor dirijase a un lugar despejado y espere un momento").setNegativeButton("Continuar", null).create().show();
+                    flag = 0;
+                }
+                if(flag == 1){
+                    via.add(new Punto(location.getLatitude(),location.getLongitude(),""));
+                    DrawRoad(via);
+                }
+
             }
         });
 
@@ -217,31 +242,38 @@ public class NavigationActivity extends AppCompatActivity
             delimitarfin.setVisibility(View.VISIBLE);
             elemento.setVisibility(View.INVISIBLE);
             encuesta.setVisibility(View.INVISIBLE);
+            acceso.setVisibility(View.INVISIBLE);
         } else if (id == R.id.nav_gallery) {
             delimitar.setVisibility(View.INVISIBLE);
             delimitarfin.setVisibility(View.INVISIBLE);
             elemento.setVisibility(View.VISIBLE);
             encuesta.setVisibility(View.INVISIBLE);
+            acceso.setVisibility(View.INVISIBLE);
         } else if (id == R.id.nav_slideshow) {
             delimitar.setVisibility(View.INVISIBLE);
             delimitarfin.setVisibility(View.INVISIBLE);
             elemento.setVisibility(View.INVISIBLE);
-            encuesta.setVisibility(View.VISIBLE);
+            encuesta.setVisibility(View.INVISIBLE);
+            acceso.setVisibility(View.VISIBLE);
+
         } else if (id == R.id.nav_manage) {
             delimitar.setVisibility(View.INVISIBLE);
             delimitarfin.setVisibility(View.INVISIBLE);
             elemento.setVisibility(View.INVISIBLE);
             encuesta.setVisibility(View.INVISIBLE);
+            acceso.setVisibility(View.INVISIBLE);
         } else if (id == R.id.nav_share) {
             delimitar.setVisibility(View.INVISIBLE);
             delimitarfin.setVisibility(View.INVISIBLE);
             elemento.setVisibility(View.INVISIBLE);
             encuesta.setVisibility(View.INVISIBLE);
+            acceso.setVisibility(View.INVISIBLE);
         } else if (id == R.id.nav_send) {
             delimitar.setVisibility(View.INVISIBLE);
             delimitarfin.setVisibility(View.INVISIBLE);
             elemento.setVisibility(View.INVISIBLE);
             encuesta.setVisibility(View.INVISIBLE);
+            acceso.setVisibility(View.INVISIBLE);
 
         }
 
@@ -284,6 +316,18 @@ public class NavigationActivity extends AppCompatActivity
         return p;
     }
 
+    public void DrawRoad(ArrayList<Punto> acceso){
+        PolylineOptions polyLine = new PolylineOptions();
+        polyLine.width(2);
+        polyLine.color(Color.GREEN);
+        polyLine.geodesic(true);
+        for (int i = 0; i < acceso.size(); i++) {
+            polyLine.add(new LatLng(acceso.get(i).getLatitud(), acceso.get(i).getLongitud()));
+        }
+
+        map.addPolyline(polyLine);
+    }
+
 
     public void BuiltPolylone (ArrayList<LatLng> latlong){
         PolylineOptions rectOptions = new PolylineOptions();
@@ -296,6 +340,7 @@ public class NavigationActivity extends AppCompatActivity
 
     }
     private void drawPolilyne(PolylineOptions options){
+        options.geodesic(true);
         map.addPolyline(options);
 
     }
