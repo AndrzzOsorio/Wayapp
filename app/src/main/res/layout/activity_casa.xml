@@ -21,4 +21,88 @@
         android:textStyle="bold|italic"
         android:textAlignment="center" />
 
+    <TextView
+        android:text="Material"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView8"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="21dp"
+        android:id="@+id/Material" />
+
+    <Button
+        android:text="Agregar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnagregar"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="29dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/txtCantidadP"
+        android:layout_above="@+id/btnagregar"
+        android:layout_alignLeft="@+id/lblCantidadP"
+        android:layout_alignStart="@+id/lblCantidadP"
+        android:layout_marginBottom="27dp" />
+
+    <TextView
+        android:text="Cantidad De Personas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblCantidadP"
+        android:layout_above="@+id/txtCantidadP"
+        android:layout_alignLeft="@+id/cbcocina"
+        android:layout_alignStart="@+id/cbcocina"
+        android:layout_marginBottom="22dp" />
+
+    <CheckBox
+        android:text="Cocina"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cbcocina"
+        android:layout_above="@+id/lblCantidadP"
+        android:layout_alignLeft="@+id/txtcantidadh"
+        android:layout_alignStart="@+id/txtcantidadh"
+        android:layout_marginBottom="12dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/txtcantidadh"
+        android:inputType="number"
+        android:layout_above="@+id/cbcocina"
+        android:layout_alignLeft="@+id/lblcantidad"
+        android:layout_alignStart="@+id/lblcantidad"
+        android:layout_marginBottom="14dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:ems="10"
+        android:id="@+id/txtMaterial"
+        android:layout_below="@+id/Material"
+        android:layout_alignLeft="@+id/Material"
+        android:layout_alignStart="@+id/Material"
+        android:layout_marginTop="26dp" />
+
+    <TextView
+        android:text="Cantidad De Habitaciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblcantidad"
+        android:layout_below="@+id/txtMaterial"
+        android:layout_alignLeft="@+id/txtMaterial"
+        android:layout_alignStart="@+id/txtMaterial"
+        android:layout_marginTop="22dp" />
+
 </RelativeLayout>
