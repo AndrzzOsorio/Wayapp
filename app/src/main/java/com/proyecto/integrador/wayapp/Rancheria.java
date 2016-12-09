@@ -10,22 +10,22 @@ import java.util.ArrayList;
  */
 
 public class Rancheria implements Serializable {
-    private int id;
+    private String id;
     private String nombre;
     private ArrayList<LatLng> delimitacion;
     private ArrayList<Elemento> elementos;
 
-    public Rancheria(int id, String nombre){
+    public Rancheria(String id, String nombre){
         this.setId(id);
         this.nombre = nombre;
 
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

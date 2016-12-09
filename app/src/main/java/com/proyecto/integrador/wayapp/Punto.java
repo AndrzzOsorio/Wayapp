@@ -7,7 +7,6 @@ package com.proyecto.integrador.wayapp;
 public class Punto {
     double latitud;
     double longitud;
-    String nombre;
     String descripcion;
 
 
@@ -25,6 +24,16 @@ public class Punto {
         return this.latitud;
     }
 
+
+     public String toJson(String id){
+         String s ="{";
+         s+="\"id_rancheria\":\""+id+"\""
+                 +",\"latitud\":\""+latitud+"\""
+                 +",\"longitud\":\""+longitud+"\""
+                 +",\"informacion_adicional\":\""+descripcion+"\"";
+         s+="}";
+         return s;
+     }
     
 
 }
