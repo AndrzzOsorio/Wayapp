@@ -5,37 +5,53 @@
         <item android:title="Delimitacion y via de acceso">
             <menu>
             <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/delimitacion"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Delimitar" />
 
             <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/fin_delimitacion"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Ruta de acceso" />
             </menu>
         </item>
     </group>
-
+    <group android:checkableBehavior="single">
     <item android:title="Ubicacion de elementos">
         <menu>
             <item
-                android:id="@+id/nav_gallery"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Listado de elementos" />
+                android:id="@+id/acasa"
+                android:icon="@drawable/ic_menu_gallery"
+                android:title="Casa" />
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/aescuela"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="Centro educativo" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/acorral"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="Corral" />
             <item
-                android:id="@+id/nav_manage"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="Tools" />
+                android:id="@+id/acultivo"
+                android:icon="@drawable/ic_menu_slideshow"
+                android:title="Cultivo" />
         </menu>
     </item>
+    </group>
 
+    <group android:checkableBehavior="single">
+        <item android:title="Encuestas">
+            <menu>
+                <item
+                    android:id="@+id/encuesta"
+                    android:icon="@drawable/ic_menu_gallery"
+                    android:title="Encuesta" />
+                <item
+                    android:id="@+id/refrescar"
+                    android:icon="@drawable/ic_menu_gallery"
+                    android:title="Volver al mapa" />
+
+            </menu>
+        </item>
+    </group>
 </menu>

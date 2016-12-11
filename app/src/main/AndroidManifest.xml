@@ -45,8 +45,6 @@
             android:name=".RancheriaActivity"
             android:label="@string/title_activity_rancheria"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Objetoactivity" />
-        <activity android:name=".CasaActivity" />
     </application>
 
 </manifest>

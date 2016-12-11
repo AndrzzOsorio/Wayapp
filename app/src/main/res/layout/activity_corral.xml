@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.proyecto.integrador.wayapp.CorralActivity">
+    tools:context="com.proyecto.integrador.wayapp.NavigationActivity">
 
     <EditText
         android:layout_width="wrap_content"
@@ -19,7 +19,9 @@
         android:layout_above="@+id/btnagregarAnimal"
         android:layout_alignLeft="@+id/lblcantidad"
         android:layout_alignStart="@+id/lblcantidad"
-        android:layout_marginBottom="71dp" />
+        android:layout_marginBottom="71dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:text="Cantidad De Animales"
@@ -40,7 +42,9 @@
         android:layout_above="@+id/lblcantidad"
         android:layout_alignLeft="@+id/lblanimal"
         android:layout_alignStart="@+id/lblanimal"
-        android:layout_marginBottom="26dp" />
+        android:layout_marginBottom="26dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:text="Animal"
@@ -55,21 +59,22 @@
         android:layout_marginBottom="36dp" />
 
     <TextView
-        android:text="Registro De Un Corral"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:id="@+id/lblRegistroCorral"
-        android:textAppearance="@android:style/TextAppearance.Material.Large"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Registro de un corral"
+        android:id="@+id/textView8"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold|italic"
+        android:textAlignment="center" />
 
     <Button
         android:text="Agregar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnagregarAnimal"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="53dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

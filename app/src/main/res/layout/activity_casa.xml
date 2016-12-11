@@ -8,7 +8,17 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.proyecto.integrador.wayapp.CasaActivity">
+    tools:context="com.proyecto.integrador.wayapp.NavigationActivity">
+
+    <TextView
+        android:text="Cantidad De Personas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/cbcocina"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="26dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -21,26 +31,70 @@
         android:textStyle="bold|italic"
         android:textAlignment="center" />
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/txtcantidadh"
+        android:inputType="number"
+        android:layout_below="@+id/lblcantidad"
+        android:layout_marginTop="21dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
     <TextView
         android:text="Material"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:id="@+id/Material"
         android:layout_below="@+id/textView8"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="21dp"
-        android:id="@+id/Material" />
+        android:layout_alignParentStart="true" />
 
-    <Button
-        android:text="Agregar"
+    <CheckBox
+        android:text="Cocina"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnagregarC"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="29dp" />
+        android:id="@+id/cbcocina"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:ems="10"
+        android:id="@+id/txtMaterialcasa"
+        android:layout_below="@+id/Material"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="14dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="Cantidad De Habitaciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblcantidad"
+        android:layout_marginTop="22dp"
+        android:layout_below="@+id/txtMaterialcasa"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Observaciones de la casa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblCantidadP"
+        android:layout_above="@+id/btnagregarC"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="55dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -48,61 +102,31 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/txtCantidadP"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="13dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/observaciones"
         android:layout_above="@+id/btnagregarC"
-        android:layout_alignLeft="@+id/lblCantidadP"
-        android:layout_alignStart="@+id/lblCantidadP"
-        android:layout_marginBottom="27dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-    <TextView
-        android:text="Cantidad De Personas"
+    <Button
+        android:text="Agregar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/lblCantidadP"
-        android:layout_above="@+id/txtCantidadP"
-        android:layout_alignLeft="@+id/cbcocina"
-        android:layout_alignStart="@+id/cbcocina"
-        android:layout_marginBottom="22dp" />
-
-    <CheckBox
-        android:text="Cocina"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/cbcocina"
-        android:layout_above="@+id/lblCantidadP"
-        android:layout_alignLeft="@+id/txtcantidadh"
-        android:layout_alignStart="@+id/txtcantidadh"
-        android:layout_marginBottom="12dp" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:id="@+id/txtcantidadh"
-        android:inputType="number"
-        android:layout_above="@+id/cbcocina"
-        android:layout_alignLeft="@+id/lblcantidad"
-        android:layout_alignStart="@+id/lblcantidad"
-        android:layout_marginBottom="14dp" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:ems="10"
-        android:id="@+id/txtMaterial"
-        android:layout_below="@+id/Material"
-        android:layout_alignLeft="@+id/Material"
-        android:layout_alignStart="@+id/Material"
-        android:layout_marginTop="26dp" />
-
-    <TextView
-        android:text="Cantidad De Habitaciones"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lblcantidad"
-        android:layout_below="@+id/txtMaterial"
-        android:layout_alignLeft="@+id/txtMaterial"
-        android:layout_alignStart="@+id/txtMaterial"
-        android:layout_marginTop="22dp" />
+        android:id="@+id/btnagregarC"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

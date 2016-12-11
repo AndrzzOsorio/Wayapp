@@ -10,5 +10,5 @@
         android:layout_height="48dp"
         android:layout_gravity="center_horizontal"
         android:contentDescription="@null"
-        android:src="@drawable/Cultivo" />
+        android:src="@drawable/cultivo" />
 </FrameLayout>

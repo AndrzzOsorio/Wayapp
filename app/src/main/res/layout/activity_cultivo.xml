@@ -8,60 +8,18 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.proyecto.integrador.wayapp.CultivoActivity">
+    tools:context="com.proyecto.integrador.wayapp.NavigationActivity">
 
     <TextView
-        android:text="Registro De Cultivo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:id="@+id/lblregistroCultivo"
-        android:textAppearance="@android:style/TextAppearance.Material.Large"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Registro de un cultivo"
+        android:id="@+id/textView8"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:text="Dueño"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:id="@+id/lblCultivoNombre"
-        android:layout_below="@+id/lblregistroCultivo"
-        android:layout_toLeftOf="@+id/lblregistroCultivo"
-        android:layout_toStartOf="@+id/lblregistroCultivo"
-        android:layout_marginRight="11dp"
-        android:layout_marginEnd="11dp" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_marginTop="22dp"
-        android:id="@+id/txtdueño"
-        android:layout_below="@+id/lblCultivoNombre"
-        android:layout_alignLeft="@+id/lblCultivoNombre"
-        android:layout_alignStart="@+id/lblCultivoNombre" />
-
-    <TextView
-        android:text="Fruto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="29dp"
-        android:id="@+id/lblCultivoFruto"
-        android:layout_below="@+id/txtdueño"
-        android:layout_alignLeft="@+id/txtdueño"
-        android:layout_alignStart="@+id/txtdueño" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_centerVertical="true"
-        android:layout_alignRight="@+id/txtdueño"
-        android:layout_alignEnd="@+id/txtdueño"
-        android:id="@+id/txtfrutos"
-        android:inputType="text" />
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold|italic"
+        android:textAlignment="center" />
 
     <TextView
         android:text="Area"
@@ -86,11 +44,59 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:layout_marginTop="42dp"
+        android:id="@+id/txtfrutos"
+        android:inputType="text"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/lblCultivoFruto"
+        android:layout_alignStart="@+id/lblCultivoFruto"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="Fruto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:id="@+id/lblCultivoFruto"
+        android:layout_below="@+id/txtdueno"
+        android:layout_alignLeft="@+id/txtdueno"
+        android:layout_alignStart="@+id/txtdueno" />
+
+    <TextView
+        android:text="Dueño"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="58dp"
+        android:id="@+id/lblCultivoNombre"
+
+        android:layout_below="@+id/textView8"
+        android:layout_alignLeft="@+id/txtdueno"
+        android:layout_alignStart="@+id/txtdueno" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_marginTop="23dp"
+        android:id="@+id/txtdueno"
+        android:layout_below="@+id/lblCultivoNombre"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginTop="19dp"
         android:id="@+id/txtAreaC"
         android:inputType="number"
+        android:hint="Metros Cuadrados"
         android:layout_below="@+id/lblArea"
-        android:layout_alignLeft="@+id/lblArea"
-        android:layout_alignStart="@+id/lblArea"
-        android:hint="Metros Cuadrados" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

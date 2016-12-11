@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
@@ -21,6 +22,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.text.Layout;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -31,8 +33,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -45,13 +50,11 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class NavigationActivity extends AppCompatActivity
@@ -63,7 +66,7 @@ public class NavigationActivity extends AppCompatActivity
     ArrayList<Punto> puntos = new ArrayList<>();
     ArrayList<Punto> via = new ArrayList<>();
     FloatingActionButton delimitar;
-    FloatingActionButton elemento;
+
     FloatingActionButton encuesta;
     FloatingActionButton delimitarfin;
     FloatingActionButton acceso;
@@ -73,8 +76,41 @@ public class NavigationActivity extends AppCompatActivity
     Double lat;
     Double lon;
     ArrayList<Punto> prueba = new ArrayList<>();
-
     Rancheria r;
+    View casalayout;
+    View escuelalayout;
+    View corrallayout;
+    View cultivolayout;
+
+//controles casa
+    Button agregarc;
+    EditText materialcasa;
+    EditText cantidadhabitantescasa;
+    EditText cantidadhabitacionescasa;
+    EditText observacion;
+    CheckBox cocina;
+
+    //Controles escuela
+    EditText nombreescuela;
+    EditText cantidadestudiantes;
+    EditText materialescuela;
+    Button agregarE;
+
+    //controles corral
+    EditText animal;
+    EditText cantidadanimales;
+    Button agregarco;
+
+    //controles cultivo
+    EditText dueno;
+    EditText fruto;
+    EditText area;
+    Button agregarcu;
+
+    ArrayList<Casa> casas;
+    ArrayList<Escuela> escuelas;
+    ArrayList<Cultivo> cultivos;
+    ArrayList<Corral> corrales;
 
 
     @Override
@@ -90,24 +126,61 @@ public class NavigationActivity extends AppCompatActivity
 
 
         Intent intent = getIntent();
-        prueba.add(new Punto(5.049300019378771,-75.47945895851801,"descripcion"));
+       /* prueba.add(new Punto(5.049300019378771,-75.47945895851801,"descripcion"));
         prueba.add(new Punto(5.049255319484387,-75.47953471146438,"descripcion1"));
         prueba.add(new Punto(5.049186817507857,-75.47945895851801,"descripcion2"));
-        prueba.add(new Punto(5.049300019378771,-75.47945895851801,"descripcion"));
+        prueba.add(new Punto(5.049300019378771,-75.47945895851801,"descripcion"));*/
 
         r = (Rancheria) intent.getSerializableExtra("rancheria");
-      //  nombrerancheria.setText(s);
+
+      //  Listas de elementos que pertenecen a las rancherias
+        casas = new ArrayList<>();
+        escuelas = new ArrayList<>();
+        cultivos = new ArrayList<>();
+        corrales = new ArrayList<>();
+
+        //paneles de vistas
+        casalayout =  findViewById(R.id.casalayout);
+        escuelalayout =  findViewById(R.id.escuelalayout);
+        corrallayout = findViewById(R.id.corrallayout);
+        cultivolayout = findViewById(R.id.cultivolayout);
+
         delimitar = (FloatingActionButton) findViewById(R.id.delimitar);
-        elemento = (FloatingActionButton) findViewById(R.id.elemento);
         encuesta = (FloatingActionButton) findViewById(R.id.encuesta);
         delimitarfin = (FloatingActionButton) findViewById(R.id.delimitarfin);
         acceso = (FloatingActionButton) findViewById(R.id.acceso);
         loadn = (FloatingActionButton) findViewById(R.id.loadn);
         caminofin = (FloatingActionButton) findViewById(R.id.caminofin);
+
+        //definicion de los controles de la casa
+        agregarc = (Button) findViewById(R.id.btnagregarC);
+        materialcasa = (EditText) findViewById(R.id.txtMaterialcasa);
+        cantidadhabitacionescasa= (EditText) findViewById(R.id.txtcantidadh);
+        cantidadhabitantescasa = (EditText) findViewById(R.id.txtCantidadP);
+        observacion = (EditText) findViewById(R.id.observaciones);
+        cocina = (CheckBox) findViewById(R.id.cbcocina);
+
+        //definicion de los controles de la escuela
+        materialescuela = (EditText) findViewById(R.id.txtMaterialC);
+        nombreescuela = (EditText) findViewById(R.id.txtnombre);
+        cantidadestudiantes = (EditText) findViewById(R.id.txtcantidadEst);
+        agregarE = (Button) findViewById(R.id.btnAgregarE);
+
+        //definicion de los controles del corral
+        animal = (EditText) findViewById(R.id.txtAnimal);
+        cantidadanimales= (EditText) findViewById(R.id.txtcantidadA);
+        agregarco = (Button) findViewById(R.id.btnagregarAnimal);
+
+        //definicion de los controles del cultivo
+        dueno = (EditText) findViewById(R.id.txtdueno);
+        fruto = (EditText) findViewById(R.id.txtfrutos);
+        area = (EditText) findViewById(R.id.txtAreaC);
+        agregarcu = (Button) findViewById(R.id.btnagregarcultivo);
+
+        //metodo para la geolocalizacion
         final LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         final Localizacion localizacion = new Localizacion();
-        localizacion.setMainActivity(this);
-
+        localizacion.setNavActivity(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -252,7 +325,7 @@ public class NavigationActivity extends AppCompatActivity
                     lon=null;
                 }
 
-                NavigationRequest request = new NavigationRequest(listener,prueba,r.getId());
+                NavigationRequest request = new NavigationRequest(listener,puntos,r.getId());
                 RequestQueue queue = Volley.newRequestQueue(NavigationActivity.this);
                 queue.add(request);
             }
@@ -282,15 +355,130 @@ public class NavigationActivity extends AppCompatActivity
             }
         });
 
-        elemento.setOnClickListener(new View.OnClickListener() {
+
+
+        agregarc.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(NavigationActivity.this,Objetoactivity.class);
-                NavigationActivity.this.startActivityForResult(intent,1);
+                try{
+                    lat=location.getLatitude();
+                    lon=location.getLongitude();
+                    flag = 1;
+                }
+                catch (Exception e){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this);
+                    builder.setMessage("No se ha podido establecer conexion con el GPS, por favor dirijase a un lugar despejado y espere un momento").setNegativeButton("Continuar", null).create().show();
+                    flag = 0;
+                }
+                if(flag ==1){
+
+                    Casa c = null;
+                    if(cocina.isChecked()){
+                        c = new Casa(location.getLatitude(),location.getLongitude(),materialcasa.getText().toString(),"Si tiene",cantidadhabitacionescasa.getText().toString(),cantidadhabitantescasa.getText().toString(),observacion.getText().toString());
+                    }else{
+                        c = new Casa(location.getLatitude(),location.getLongitude(),materialcasa.getText().toString(),"No tiene",cantidadhabitacionescasa.getText().toString(),cantidadhabitantescasa.getText().toString(),observacion.getText().toString());
+                    }
+
+              casas.add(c);
+              for (int i = 0; i<casas.size();i++){
+                  setMarkerCasa(new LatLng(casas.get(i).getLatitud(),casas.get(i).getLongitud()),"Casa",casas.get(i).ToInformation());
+              }
+                casalayout.setVisibility(View.INVISIBLE);
+                supportMapFragment.getView().setVisibility(View.VISIBLE);
+                    materialcasa.setText("");
+                    cantidadhabitantescasa.setText("");
+                    cantidadhabitacionescasa.setText("");
+                    observacion.setText("");
+                }
+
             }
         });
 
+        agregarE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    lat=location.getLatitude();
+                    lon=location.getLongitude();
+                    flag = 1;
+                }
+                catch (Exception e){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this);
+                    builder.setMessage("No se ha podido establecer conexion con el GPS, por favor dirijase a un lugar despejado y espere un momento").setNegativeButton("Continuar", null).create().show();
+                    flag = 0;
+                }
+                if(flag ==1) {
+                    Escuela e = new Escuela(location.getLatitude(), location.getLongitude(), materialescuela.getText().toString(), cantidadestudiantes.getText().toString(), nombreescuela.getText().toString());
+                    escuelas.add(e);
+                    for (int i = 0; i < escuelas.size(); i++) {
+                        setMarkerEscuela(new LatLng(escuelas.get(i).getLatitud(), escuelas.get(i).getLongitud()), "Centro Educativo", escuelas.get(i).ToInformation());
+                    }
+                    escuelalayout.setVisibility(View.INVISIBLE);
+                    supportMapFragment.getView().setVisibility(View.VISIBLE);
 
+                    nombreescuela.setText("");
+                    cantidadestudiantes.setText("");
+                    materialescuela.setText("");
+                }
+            }
+
+        });
+
+        agregarco.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    lat=location.getLatitude();
+                    lon=location.getLongitude();
+                    flag = 1;
+                }
+                catch (Exception e){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this);
+                    builder.setMessage("No se ha podido establecer conexion con el GPS, por favor dirijase a un lugar despejado y espere un momento").setNegativeButton("Continuar", null).create().show();
+                    flag = 0;
+                }
+                if(flag ==1){
+               Corral co = new Corral(location.getLatitude(),location.getLongitude(),animal.getText().toString(),cantidadanimales.getText().toString());
+               corrales.add(co);
+                for (int i = 0; i<corrales.size();i++){
+                    setMarkerCorral(new LatLng(corrales.get(i).getLatitud(),corrales.get(i).getLongitud()),"Corral ganadero",corrales.get(i).ToInformation());
+                }
+                corrallayout.setVisibility(View.INVISIBLE);
+                supportMapFragment.getView().setVisibility(View.VISIBLE);
+                    animal.setText("");
+                    cantidadanimales.setText("");
+                }
+            }
+        });
+
+        agregarcu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    lat=location.getLatitude();
+                    lon=location.getLongitude();
+                    flag = 1;
+                }
+                catch (Exception e){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this);
+                    builder.setMessage("No se ha podido establecer conexion con el GPS, por favor dirijase a un lugar despejado y espere un momento").setNegativeButton("Continuar", null).create().show();
+                    flag = 0;
+                }
+                if(flag ==1){
+               Cultivo cu = new Cultivo(location.getLatitude(),location.getLongitude(),dueno.getText().toString(),fruto.getText().toString(),area.getText().toString());
+                cultivos.add(cu);
+                for (int i = 0; i<cultivos.size();i++){
+                    setMarkerCultivo(new LatLng(cultivos.get(i).getLatitud(),cultivos.get(i).getLongitud()),"Cultivo agricola",cultivos.get(i).ToInformation());
+                }
+                cultivolayout.setVisibility(View.INVISIBLE);
+                supportMapFragment.getView().setVisibility(View.VISIBLE);
+                    dueno.setText("");
+                    fruto.setText("");
+                    area.setText("");
+                }
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -303,9 +491,6 @@ public class NavigationActivity extends AppCompatActivity
         View header=navigationView.getHeaderView(0);
         TextView nombrerancheria = (TextView) header.findViewById(R.id.tvRancheria);
         nombrerancheria.setText("Rancheria "+r.getNombre());
-
-
-
     }
 
     public void setLocation(Location loc){
@@ -350,49 +535,90 @@ public class NavigationActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.delimitacion) {
             delimitar.setVisibility(View.VISIBLE);
             delimitarfin.setVisibility(View.VISIBLE);
-            elemento.setVisibility(View.INVISIBLE);
             encuesta.setVisibility(View.INVISIBLE);
             acceso.setVisibility(View.INVISIBLE);
             loadn.setVisibility(View.INVISIBLE);
-        } else if (id == R.id.nav_gallery) {
+            casalayout.setVisibility(View.INVISIBLE);
+            escuelalayout.setVisibility(View.INVISIBLE);
+            corrallayout.setVisibility(View.INVISIBLE);
+            cultivolayout.setVisibility(View.INVISIBLE);
+            supportMapFragment.getView().setVisibility(View.VISIBLE);
+
+        } else if (id == R.id.fin_delimitacion) {
             delimitar.setVisibility(View.INVISIBLE);
             delimitarfin.setVisibility(View.INVISIBLE);
-            elemento.setVisibility(View.VISIBLE);
-            encuesta.setVisibility(View.INVISIBLE);
-            acceso.setVisibility(View.INVISIBLE);
-            loadn.setVisibility(View.INVISIBLE);
-        } else if (id == R.id.nav_slideshow) {
-            delimitar.setVisibility(View.INVISIBLE);
-            delimitarfin.setVisibility(View.INVISIBLE);
-            elemento.setVisibility(View.INVISIBLE);
             encuesta.setVisibility(View.INVISIBLE);
             acceso.setVisibility(View.VISIBLE);
             loadn.setVisibility(View.VISIBLE);
+            casalayout.setVisibility(View.INVISIBLE);
+            escuelalayout.setVisibility(View.INVISIBLE);
+            corrallayout.setVisibility(View.INVISIBLE);
+            cultivolayout.setVisibility(View.INVISIBLE);
+            supportMapFragment.getView().setVisibility(View.VISIBLE);
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.acasa) {
             delimitar.setVisibility(View.INVISIBLE);
             delimitarfin.setVisibility(View.INVISIBLE);
-            elemento.setVisibility(View.INVISIBLE);
             encuesta.setVisibility(View.INVISIBLE);
             acceso.setVisibility(View.INVISIBLE);
             loadn.setVisibility(View.INVISIBLE);
-        } else if (id == R.id.nav_share) {
+            casalayout.setVisibility(View.VISIBLE);
+            escuelalayout.setVisibility(View.INVISIBLE);
+            corrallayout.setVisibility(View.INVISIBLE);
+            cultivolayout.setVisibility(View.INVISIBLE);
+            supportMapFragment.getView().setVisibility(View.INVISIBLE);
+
+        } else if (id == R.id.aescuela) {
             delimitar.setVisibility(View.INVISIBLE);
             delimitarfin.setVisibility(View.INVISIBLE);
-            elemento.setVisibility(View.INVISIBLE);
             encuesta.setVisibility(View.INVISIBLE);
             acceso.setVisibility(View.INVISIBLE);
             loadn.setVisibility(View.INVISIBLE);
-        } else if (id == R.id.nav_send) {
+            casalayout.setVisibility(View.INVISIBLE);
+            escuelalayout.setVisibility(View.VISIBLE);
+            corrallayout.setVisibility(View.INVISIBLE);
+            cultivolayout.setVisibility(View.INVISIBLE);
+            supportMapFragment.getView().setVisibility(View.INVISIBLE);
+
+        } else if (id == R.id.acorral) {
             delimitar.setVisibility(View.INVISIBLE);
             delimitarfin.setVisibility(View.INVISIBLE);
-            elemento.setVisibility(View.INVISIBLE);
             encuesta.setVisibility(View.INVISIBLE);
             acceso.setVisibility(View.INVISIBLE);
             loadn.setVisibility(View.INVISIBLE);
+            casalayout.setVisibility(View.INVISIBLE);
+            escuelalayout.setVisibility(View.INVISIBLE);
+            corrallayout.setVisibility(View.VISIBLE);
+            cultivolayout.setVisibility(View.INVISIBLE);
+            supportMapFragment.getView().setVisibility(View.INVISIBLE);
+
+        } else if (id == R.id.acultivo) {
+            delimitar.setVisibility(View.INVISIBLE);
+            delimitarfin.setVisibility(View.INVISIBLE);
+            encuesta.setVisibility(View.INVISIBLE);
+            acceso.setVisibility(View.INVISIBLE);
+            loadn.setVisibility(View.INVISIBLE);
+            casalayout.setVisibility(View.INVISIBLE);
+            escuelalayout.setVisibility(View.INVISIBLE);
+            corrallayout.setVisibility(View.INVISIBLE);
+            cultivolayout.setVisibility(View.VISIBLE);
+            supportMapFragment.getView().setVisibility(View.INVISIBLE);
+
+        }
+        else if (id == R.id.refrescar) {
+            delimitar.setVisibility(View.INVISIBLE);
+            delimitarfin.setVisibility(View.INVISIBLE);
+            encuesta.setVisibility(View.INVISIBLE);
+            acceso.setVisibility(View.INVISIBLE);
+            loadn.setVisibility(View.INVISIBLE);
+            casalayout.setVisibility(View.INVISIBLE);
+            escuelalayout.setVisibility(View.INVISIBLE);
+            corrallayout.setVisibility(View.INVISIBLE);
+            cultivolayout.setVisibility(View.INVISIBLE);
+            supportMapFragment.getView().setVisibility(View.VISIBLE);
 
         }
 
@@ -416,15 +642,47 @@ public class NavigationActivity extends AppCompatActivity
         }
         map.setMyLocationEnabled(true);
 
+        }
 
-    }
+
+
     private void setMarkerCasa(LatLng position, String titulo, String info) {
+
         Bitmap bmp = getMarkerBitmapFromView(R.drawable.casa,0);
         Marker myMaker = map.addMarker(new MarkerOptions()
                 .position(position)
                 .title(titulo)
                 .snippet(info)
                 .icon(BitmapDescriptorFactory.fromBitmap(bmp)));
+        map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+
+            @Override
+            public View getInfoWindow(Marker arg0) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+
+                LinearLayout info = new LinearLayout(NavigationActivity.this);
+                info.setOrientation(LinearLayout.VERTICAL);
+
+                TextView title = new TextView(NavigationActivity.this);
+                title.setTextColor(Color.BLACK);
+                title.setGravity(Gravity.CENTER);
+                title.setTypeface(null, Typeface.BOLD);
+                title.setText(marker.getTitle());
+
+                TextView snippet = new TextView(NavigationActivity.this);
+                snippet.setTextColor(Color.GRAY);
+                snippet.setText(marker.getSnippet());
+
+                info.addView(title);
+                info.addView(snippet);
+
+                return info;
+            }
+        });
     }
 
     private void setMarkerEscuela(LatLng position, String titulo, String info) {
@@ -434,6 +692,35 @@ public class NavigationActivity extends AppCompatActivity
                 .title(titulo)
                 .snippet(info)
                 .icon(BitmapDescriptorFactory.fromBitmap(bmp)));
+        map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+
+            @Override
+            public View getInfoWindow(Marker arg0) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+
+                LinearLayout info = new LinearLayout(NavigationActivity.this);
+                info.setOrientation(LinearLayout.VERTICAL);
+
+                TextView title = new TextView(NavigationActivity.this);
+                title.setTextColor(Color.BLACK);
+                title.setGravity(Gravity.CENTER);
+                title.setTypeface(null, Typeface.BOLD);
+                title.setText(marker.getTitle());
+
+                TextView snippet = new TextView(NavigationActivity.this);
+                snippet.setTextColor(Color.GRAY);
+                snippet.setText(marker.getSnippet());
+
+                info.addView(title);
+                info.addView(snippet);
+
+                return info;
+            }
+        });
     }
 
     private void setMarkerCorral(LatLng position, String titulo, String info) {
@@ -443,15 +730,73 @@ public class NavigationActivity extends AppCompatActivity
                 .title(titulo)
                 .snippet(info)
                 .icon(BitmapDescriptorFactory.fromBitmap(bmp)));
+        map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+
+            @Override
+            public View getInfoWindow(Marker arg0) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+
+                LinearLayout info = new LinearLayout(NavigationActivity.this);
+                info.setOrientation(LinearLayout.VERTICAL);
+
+                TextView title = new TextView(NavigationActivity.this);
+                title.setTextColor(Color.BLACK);
+                title.setGravity(Gravity.CENTER);
+                title.setTypeface(null, Typeface.BOLD);
+                title.setText(marker.getTitle());
+
+                TextView snippet = new TextView(NavigationActivity.this);
+                snippet.setTextColor(Color.GRAY);
+                snippet.setText(marker.getSnippet());
+
+                info.addView(title);
+                info.addView(snippet);
+
+                return info;
+            }
+        });
     }
 
     private void setMarkerCultivo(LatLng position, String titulo, String info) {
-        Bitmap bmp = getMarkerBitmapFromView(R.drawable.Cultivo,3);
+        Bitmap bmp = getMarkerBitmapFromView(R.drawable.cultivo,3);
         Marker myMaker = map.addMarker(new MarkerOptions()
                 .position(position)
                 .title(titulo)
                 .snippet(info)
                 .icon(BitmapDescriptorFactory.fromBitmap(bmp)));
+        map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+
+            @Override
+            public View getInfoWindow(Marker arg0) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+
+                LinearLayout info = new LinearLayout(NavigationActivity.this);
+                info.setOrientation(LinearLayout.VERTICAL);
+
+                TextView title = new TextView(NavigationActivity.this);
+                title.setTextColor(Color.BLACK);
+                title.setGravity(Gravity.CENTER);
+                title.setTypeface(null, Typeface.BOLD);
+                title.setText(marker.getTitle());
+
+                TextView snippet = new TextView(NavigationActivity.this);
+                snippet.setTextColor(Color.GRAY);
+                snippet.setText(marker.getSnippet());
+
+                info.addView(title);
+                info.addView(snippet);
+
+                return info;
+            }
+        });
     }
 
     private void setMarkerRed(LatLng position, String titulo, String info) {
@@ -561,6 +906,8 @@ public class NavigationActivity extends AppCompatActivity
         customMarkerView.draw(canvas);
         return returnedBitmap;
     }
+
+
 
 
 }

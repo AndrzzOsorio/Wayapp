@@ -13,13 +13,17 @@ import com.google.android.gms.maps.model.LatLng;
 public class Localizacion implements LocationListener {
     NavigationActivity navigationActivity;
 
+
+
     public NavigationActivity getMainActivity() {
         return navigationActivity;
     }
 
-    public void setMainActivity(NavigationActivity navigationActivity) {
+    public void setNavActivity(NavigationActivity navigationActivity) {
+
         this.navigationActivity = navigationActivity;
     }
+
 
     @Override
     public void onLocationChanged(Location loc) {
@@ -29,8 +33,8 @@ public class Localizacion implements LocationListener {
         loc.getLatitude();
         loc.getLongitude();
 
+             this.navigationActivity.setLocation(loc);
 
-        this.navigationActivity.setLocation(loc);
     }
 
 
