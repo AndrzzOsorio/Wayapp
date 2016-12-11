@@ -5,17 +5,23 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.text.Layout;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -26,6 +32,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -60,6 +67,8 @@ public class NavigationActivity extends AppCompatActivity
     FloatingActionButton encuesta;
     FloatingActionButton delimitarfin;
     FloatingActionButton acceso;
+    FloatingActionButton loadn;
+    FloatingActionButton caminofin;
     int flag = 0;
     Double lat;
     Double lon;
@@ -93,6 +102,8 @@ public class NavigationActivity extends AppCompatActivity
         encuesta = (FloatingActionButton) findViewById(R.id.encuesta);
         delimitarfin = (FloatingActionButton) findViewById(R.id.delimitarfin);
         acceso = (FloatingActionButton) findViewById(R.id.acceso);
+        loadn = (FloatingActionButton) findViewById(R.id.loadn);
+        caminofin = (FloatingActionButton) findViewById(R.id.caminofin);
         final LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         final Localizacion localizacion = new Localizacion();
         localizacion.setMainActivity(this);
@@ -109,6 +120,69 @@ public class NavigationActivity extends AppCompatActivity
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) localizacion);
 
+        caminofin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Response.Listener<String> listener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject JsonResponse = null;
+                        try {
+                            JsonResponse = new JSONObject(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        try {
+                            boolean success = JsonResponse.getBoolean("success");
+                            if(success){
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                NavigationRequest request = new NavigationRequest(listener,r.getId(),prueba);
+                RequestQueue queue = Volley.newRequestQueue(NavigationActivity.this);
+                queue.add(request);
+
+            }
+        });
+
+
+
+        
+
+        loadn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Response.Listener<String> listener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject JsonResponse = null;
+                        try {
+                            JsonResponse = new JSONObject(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        try {
+                            boolean success = JsonResponse.getBoolean("success");
+                            if(success){
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                NavigationRequest request = new NavigationRequest(listener,r.getId());
+                RequestQueue queue = Volley.newRequestQueue(NavigationActivity.this);
+                queue.add(request);
+
+            }
+        });
 
 
         delimitar.setOnClickListener(new View.OnClickListener() {
@@ -160,9 +234,7 @@ public class NavigationActivity extends AppCompatActivity
                         }
                     }
                 };
-
-
-               /* try{
+                try{
 
                     lat=location.getLatitude();
                     lon=location.getLongitude();
@@ -172,13 +244,13 @@ public class NavigationActivity extends AppCompatActivity
                     AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this);
                     builder.setMessage("No se ha podido establecer conexion con el GPS, por favor dirijase a un lugar despejado y espere un momento").setNegativeButton("Continuar", null).create().show();
                     flag = 0;
-                }*/
-                //if(flag == 1){
-                    ///puntos.add(puntos.get(0));
-                    BuiltPolylone(toLatlong(prueba));
+                }
+                if(flag == 1){
+                    puntos.add(puntos.get(0));
+                    BuiltPolylone(toLatlong(puntos));
                     lat=null;
                     lon=null;
-               // }
+                }
 
                 NavigationRequest request = new NavigationRequest(listener,prueba,r.getId());
                 RequestQueue queue = Volley.newRequestQueue(NavigationActivity.this);
@@ -214,7 +286,7 @@ public class NavigationActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(NavigationActivity.this,Objetoactivity.class);
-                NavigationActivity.this.startActivity(intent);
+                NavigationActivity.this.startActivityForResult(intent,1);
             }
         });
 
@@ -284,18 +356,21 @@ public class NavigationActivity extends AppCompatActivity
             elemento.setVisibility(View.INVISIBLE);
             encuesta.setVisibility(View.INVISIBLE);
             acceso.setVisibility(View.INVISIBLE);
+            loadn.setVisibility(View.INVISIBLE);
         } else if (id == R.id.nav_gallery) {
             delimitar.setVisibility(View.INVISIBLE);
             delimitarfin.setVisibility(View.INVISIBLE);
             elemento.setVisibility(View.VISIBLE);
             encuesta.setVisibility(View.INVISIBLE);
             acceso.setVisibility(View.INVISIBLE);
+            loadn.setVisibility(View.INVISIBLE);
         } else if (id == R.id.nav_slideshow) {
             delimitar.setVisibility(View.INVISIBLE);
             delimitarfin.setVisibility(View.INVISIBLE);
             elemento.setVisibility(View.INVISIBLE);
             encuesta.setVisibility(View.INVISIBLE);
             acceso.setVisibility(View.VISIBLE);
+            loadn.setVisibility(View.VISIBLE);
 
         } else if (id == R.id.nav_manage) {
             delimitar.setVisibility(View.INVISIBLE);
@@ -303,18 +378,21 @@ public class NavigationActivity extends AppCompatActivity
             elemento.setVisibility(View.INVISIBLE);
             encuesta.setVisibility(View.INVISIBLE);
             acceso.setVisibility(View.INVISIBLE);
+            loadn.setVisibility(View.INVISIBLE);
         } else if (id == R.id.nav_share) {
             delimitar.setVisibility(View.INVISIBLE);
             delimitarfin.setVisibility(View.INVISIBLE);
             elemento.setVisibility(View.INVISIBLE);
             encuesta.setVisibility(View.INVISIBLE);
             acceso.setVisibility(View.INVISIBLE);
+            loadn.setVisibility(View.INVISIBLE);
         } else if (id == R.id.nav_send) {
             delimitar.setVisibility(View.INVISIBLE);
             delimitarfin.setVisibility(View.INVISIBLE);
             elemento.setVisibility(View.INVISIBLE);
             encuesta.setVisibility(View.INVISIBLE);
             acceso.setVisibility(View.INVISIBLE);
+            loadn.setVisibility(View.INVISIBLE);
 
         }
 
@@ -340,14 +418,50 @@ public class NavigationActivity extends AppCompatActivity
 
 
     }
-    private void setMarkerRed(LatLng position, String titulo, String info) {
+    private void setMarkerCasa(LatLng position, String titulo, String info) {
+        Bitmap bmp = getMarkerBitmapFromView(R.drawable.casa,0);
+        Marker myMaker = map.addMarker(new MarkerOptions()
+                .position(position)
+                .title(titulo)
+                .snippet(info)
+                .icon(BitmapDescriptorFactory.fromBitmap(bmp)));
+    }
 
+    private void setMarkerEscuela(LatLng position, String titulo, String info) {
+        Bitmap bmp = getMarkerBitmapFromView(R.drawable.escuela,1);
+        Marker myMaker = map.addMarker(new MarkerOptions()
+                .position(position)
+                .title(titulo)
+                .snippet(info)
+                .icon(BitmapDescriptorFactory.fromBitmap(bmp)));
+    }
+
+    private void setMarkerCorral(LatLng position, String titulo, String info) {
+        Bitmap bmp = getMarkerBitmapFromView(R.drawable.corral,2);
+        Marker myMaker = map.addMarker(new MarkerOptions()
+                .position(position)
+                .title(titulo)
+                .snippet(info)
+                .icon(BitmapDescriptorFactory.fromBitmap(bmp)));
+    }
+
+    private void setMarkerCultivo(LatLng position, String titulo, String info) {
+        Bitmap bmp = getMarkerBitmapFromView(R.drawable.Cultivo,3);
+        Marker myMaker = map.addMarker(new MarkerOptions()
+                .position(position)
+                .title(titulo)
+                .snippet(info)
+                .icon(BitmapDescriptorFactory.fromBitmap(bmp)));
+    }
+
+    private void setMarkerRed(LatLng position, String titulo, String info) {
         Marker myMaker = map.addMarker(new MarkerOptions()
                 .position(position)
                 .title(titulo)
                 .snippet(info)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
     }
+
 
     public ArrayList<LatLng> toLatlong(ArrayList<Punto> puntos){
         ArrayList<LatLng> p = new ArrayList<>();
@@ -403,6 +517,7 @@ public class NavigationActivity extends AppCompatActivity
             public void onClick(DialogInterface dialog, int which) {
                 m_Text[0] = input.getText().toString();
                 setMarkerRed(new LatLng(lati,longi),input.getText().toString(),"");
+
             }
         });
         builder[0].setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -413,7 +528,38 @@ public class NavigationActivity extends AppCompatActivity
         });
 
         builder[0].show();
-        return String.valueOf(input);
+        return m_Text[0].toString();
+    }
+
+    private Bitmap getMarkerBitmapFromView(@DrawableRes int resId, int elemento) {
+        View customMarkerView = null;
+        ImageView markerImageView=null;
+        switch (elemento){
+            case 0: customMarkerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.imagen_casa, null);
+                markerImageView = (ImageView) customMarkerView.findViewById(R.id.icono_casa);
+                break;
+            case 1: customMarkerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.imagen_escuela, null);
+                markerImageView = (ImageView) customMarkerView.findViewById(R.id.icono_escuela);
+                break;
+            case 2: customMarkerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.imagen_corral, null);
+                markerImageView = (ImageView) customMarkerView.findViewById(R.id.icono_corral);
+                break;
+            case 3: customMarkerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.imagen_cultivo, null);
+                markerImageView = (ImageView) customMarkerView.findViewById(R.id.icono_cultivo);
+        }
+        markerImageView.setImageResource(resId);
+        customMarkerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        customMarkerView.layout(0, 0, customMarkerView.getMeasuredWidth(), customMarkerView.getMeasuredHeight());
+        customMarkerView.buildDrawingCache();
+        Bitmap returnedBitmap = Bitmap.createBitmap(customMarkerView.getMeasuredWidth(), customMarkerView.getMeasuredHeight(),
+                Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(returnedBitmap);
+        canvas.drawColor(Color.WHITE, PorterDuff.Mode.SRC_IN);
+        Drawable drawable = customMarkerView.getBackground();
+        if (drawable != null)
+            drawable.draw(canvas);
+        customMarkerView.draw(canvas);
+        return returnedBitmap;
     }
 
 
