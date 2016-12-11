@@ -28,6 +28,9 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -37,6 +40,9 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -57,6 +63,7 @@ public class NavigationActivity extends AppCompatActivity
     int flag = 0;
     Double lat;
     Double lon;
+    ArrayList<Punto> prueba = new ArrayList<>();
 
     Rancheria r;
 
@@ -74,6 +81,10 @@ public class NavigationActivity extends AppCompatActivity
 
 
         Intent intent = getIntent();
+        prueba.add(new Punto(5.049300019378771,-75.47945895851801,"descripcion"));
+        prueba.add(new Punto(5.049255319484387,-75.47953471146438,"descripcion1"));
+        prueba.add(new Punto(5.049186817507857,-75.47945895851801,"descripcion2"));
+        prueba.add(new Punto(5.049300019378771,-75.47945895851801,"descripcion"));
 
         r = (Rancheria) intent.getSerializableExtra("rancheria");
       //  nombrerancheria.setText(s);
@@ -132,7 +143,27 @@ public class NavigationActivity extends AppCompatActivity
         delimitarfin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try{
+                Response.Listener<String> listener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject JsonResponse = null;
+                        try {
+                            JsonResponse = new JSONObject(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        try {
+                            boolean success = JsonResponse.getBoolean("success");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+
+
+               /* try{
+
                     lat=location.getLatitude();
                     lon=location.getLongitude();
                     flag = 1;
@@ -141,15 +172,22 @@ public class NavigationActivity extends AppCompatActivity
                     AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this);
                     builder.setMessage("No se ha podido establecer conexion con el GPS, por favor dirijase a un lugar despejado y espere un momento").setNegativeButton("Continuar", null).create().show();
                     flag = 0;
-                }
-                if(flag == 1){
-                    puntos.add(puntos.get(0));
-                    BuiltPolylone(toLatlong(puntos));
+                }*/
+                //if(flag == 1){
+                    ///puntos.add(puntos.get(0));
+                    BuiltPolylone(toLatlong(prueba));
                     lat=null;
                     lon=null;
-                }
+               // }
+
+                NavigationRequest request = new NavigationRequest(listener,prueba,r.getId());
+                RequestQueue queue = Volley.newRequestQueue(NavigationActivity.this);
+                queue.add(request);
             }
+
+
         });
+
 
         acceso.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,6 +218,8 @@ public class NavigationActivity extends AppCompatActivity
             }
         });
 
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -191,6 +231,7 @@ public class NavigationActivity extends AppCompatActivity
         View header=navigationView.getHeaderView(0);
         TextView nombrerancheria = (TextView) header.findViewById(R.id.tvRancheria);
         nombrerancheria.setText("Rancheria "+r.getNombre());
+
 
 
     }
@@ -372,6 +413,13 @@ public class NavigationActivity extends AppCompatActivity
         });
 
         builder[0].show();
-        return m_Text[0];
+        return String.valueOf(input);
     }
+
+
 }
+
+
+
+
+

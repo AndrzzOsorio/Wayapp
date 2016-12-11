@@ -37,7 +37,7 @@
         android:text="Agregar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnagregar"
+        android:id="@+id/btnagregarC"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="29dp" />
@@ -48,7 +48,7 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/txtCantidadP"
-        android:layout_above="@+id/btnagregar"
+        android:layout_above="@+id/btnagregarC"
         android:layout_alignLeft="@+id/lblCantidadP"
         android:layout_alignStart="@+id/lblCantidadP"
         android:layout_marginBottom="27dp" />

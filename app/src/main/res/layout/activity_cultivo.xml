@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_cultivo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.proyecto.integrador.wayapp.CultivoActivity">
+
+    <TextView
+        android:text="Registro De Cultivo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:id="@+id/lblregistroCultivo"
+        android:textAppearance="@android:style/TextAppearance.Material.Large"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="Dueño"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/lblCultivoNombre"
+        android:layout_below="@+id/lblregistroCultivo"
+        android:layout_toLeftOf="@+id/lblregistroCultivo"
+        android:layout_toStartOf="@+id/lblregistroCultivo"
+        android:layout_marginRight="11dp"
+        android:layout_marginEnd="11dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_marginTop="22dp"
+        android:id="@+id/txtdueño"
+        android:layout_below="@+id/lblCultivoNombre"
+        android:layout_alignLeft="@+id/lblCultivoNombre"
+        android:layout_alignStart="@+id/lblCultivoNombre" />
+
+    <TextView
+        android:text="Fruto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
+        android:id="@+id/lblCultivoFruto"
+        android:layout_below="@+id/txtdueño"
+        android:layout_alignLeft="@+id/txtdueño"
+        android:layout_alignStart="@+id/txtdueño" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/txtdueño"
+        android:layout_alignEnd="@+id/txtdueño"
+        android:id="@+id/txtfrutos"
+        android:inputType="text" />
+
+    <TextView
+        android:text="Area"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblArea"
+        android:layout_below="@+id/txtfrutos"
+        android:layout_alignLeft="@+id/txtfrutos"
+        android:layout_alignStart="@+id/txtfrutos"
+        android:layout_marginTop="26dp" />
+
+    <Button
+        android:text="Agregar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtAreaC"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:id="@+id/btnagregarcultivo" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginTop="42dp"
+        android:id="@+id/txtAreaC"
+        android:inputType="number"
+        android:layout_below="@+id/lblArea"
+        android:layout_alignLeft="@+id/lblArea"
+        android:layout_alignStart="@+id/lblArea"
+        android:hint="Metros Cuadrados" />
+</RelativeLayout>

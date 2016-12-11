@@ -4,37 +4,28 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.maps.model.LatLng;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class RancheriaActivity extends AppCompatActivity {
 
     int id;
     FloatingActionButton load;
+    Response.Listener<String> listener;
+    ArrayList<Rancheria> tmp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,19 +34,21 @@ public class RancheriaActivity extends AppCompatActivity {
         //setSupportActionBar(toolbar);
         //ListView lista =  (ListView)findViewById(R.id.listarancherias);
         load = (FloatingActionButton) findViewById(R.id.load);
+        tmp = new ArrayList<>();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.nueva);
         fab.setOnClickListener(new View.OnClickListener() {
             public ArrayList<Rancheria> rancherias = new ArrayList<>();
             @Override
             public void onClick(View view) {
-                if(rancherias.isEmpty()){
+                if(tmp.isEmpty()){
                     id = 1;
                     solicitarnombre();
 
 
                 }
                 else{
-                    id = rancherias.indexOf(rancherias.size()-1);
+
+                    id = tmp.size()+1;
                     solicitarnombre();
                 }
             }
@@ -76,6 +69,8 @@ public class RancheriaActivity extends AppCompatActivity {
                                 rancherias.add(new Rancheria(row.getString("id_rancheria"),row.getString("nombre")));
 
                             }
+                            tmp = rancherias;
+
                             if (!rancherias.isEmpty()){
                                  setadapter(rancherias);
                                 }
@@ -92,6 +87,24 @@ public class RancheriaActivity extends AppCompatActivity {
 
             }
         });
+        listener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                JSONObject JsonResponse = null;
+                try {
+                    JsonResponse = new JSONObject(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    boolean success = JsonResponse.getBoolean("success");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        };
 
         load.performClick();
 
@@ -114,7 +127,9 @@ public class RancheriaActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Rancheria r = new Rancheria(id+"",input.getText().toString());
-
+                RancheriaRequest request = new RancheriaRequest(listener,r.getId(),r.getNombre());
+                RequestQueue queue = Volley.newRequestQueue(RancheriaActivity.this);
+                queue.add(request);
                 Intent intent = new Intent(RancheriaActivity.this,NavigationActivity.class);
                 intent.putExtra("rancheria",r);
                 RancheriaActivity.this.startActivity(intent);
@@ -158,6 +173,9 @@ public class RancheriaActivity extends AppCompatActivity {
     }
 
 
+    public void enviarRancheria(String id, String nombre)
+    {
 
+    }
 
 }

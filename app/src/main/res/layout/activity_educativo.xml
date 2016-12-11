@@ -10,57 +10,84 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.proyecto.integrador.wayapp.EducativoActivity">
 
+    <Button
+        android:text="Agregar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnAgregarE"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="38dp" />
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:layout_below="@+id/lblNombre"
-        android:layout_alignLeft="@+id/lblNombre"
-        android:layout_alignStart="@+id/lblNombre"
-        android:layout_marginTop="14dp"
-        android:id="@+id/txtnombre"
-        android:inputType="text" />
+        android:id="@+id/txtMaterialC"
+        android:inputType="text"
+        android:layout_above="@+id/btnAgregarE"
+        android:layout_alignLeft="@+id/lblMaterial"
+        android:layout_alignStart="@+id/lblMaterial"
+        android:layout_marginBottom="35dp" />
+
+    <TextView
+        android:text="Material"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblMaterial"
+        android:layout_marginBottom="17dp"
+        android:layout_above="@+id/txtMaterialC"
+        android:layout_alignLeft="@+id/txtcantidadE"
+        android:layout_alignStart="@+id/txtcantidadE" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/txtcantidadE"
+        android:inputType="number"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/txtCantidadE"
+        android:layout_alignStart="@+id/txtCantidadE" />
+
+    <TextView
+        android:text="Registro De Un Centro Educativo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:id="@+id/lblRegistroCasa"
+        android:textAppearance="@android:style/TextAppearance.Material.Large"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:text="Nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="18dp"
         android:id="@+id/lblNombre"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:text="Cantidad De Estudiantes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:id="@+id/txtCantidadE"
-        android:layout_below="@+id/txtnombre"
-        android:layout_alignLeft="@+id/txtnombre"
-        android:layout_alignStart="@+id/txtnombre" />
+        android:layout_below="@+id/lblRegistroCasa"
+        android:layout_alignLeft="@+id/lblRegistroCasa"
+        android:layout_alignStart="@+id/lblRegistroCasa"
+        android:layout_marginTop="24dp" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:layout_below="@+id/txtCantidadE"
-        android:layout_alignRight="@+id/txtnombre"
-        android:layout_alignEnd="@+id/txtnombre"
-        android:layout_marginTop="15dp"
-        android:id="@+id/txtcantidadE"
-        android:inputType="number" />
+        android:id="@+id/txtnombre"
+        android:inputType="text"
+        android:layout_below="@+id/lblNombre"
+        android:layout_alignLeft="@+id/lblNombre"
+        android:layout_alignStart="@+id/lblNombre"
+        android:layout_marginTop="15dp" />
 
     <TextView
-        android:text="TextView"
+        android:text="Cantidad De Estudiantes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtcantidadE"
-        android:layout_alignLeft="@+id/txtcantidadE"
-        android:layout_alignStart="@+id/txtcantidadE"
-        android:layout_marginTop="17dp"
-        android:id="@+id/lbl" />
+        android:id="@+id/txtCantidadE"
+        android:layout_above="@+id/txtcantidadE"
+        android:layout_alignLeft="@+id/txtnombre"
+        android:layout_alignStart="@+id/txtnombre"
+        android:layout_marginBottom="21dp" />
 </RelativeLayout>

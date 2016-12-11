@@ -44,6 +44,19 @@ public class Objetoactivity extends AppCompatActivity {
                         Intent intent = new Intent(Objetoactivity.this,CasaActivity.class);
                         Objetoactivity.this.startActivity(intent);
                         break;
+                    case 1:
+                        Intent intent1 = new Intent(Objetoactivity.this,EducativoActivity.class);
+                        Objetoactivity.this.startActivity(intent1);
+                        break;
+                    case 2:
+                        Intent intent2 = new Intent(Objetoactivity.this,CorralActivity.class);
+                        Objetoactivity.this.startActivity(intent2);
+                        break;
+                    case 3:
+                        Intent intent3 = new Intent(Objetoactivity.this,CultivoActivity.class);
+                        Objetoactivity.this.startActivity(intent3);
+                        break;
+
 
 
                 }
