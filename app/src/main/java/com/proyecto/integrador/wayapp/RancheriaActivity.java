@@ -35,6 +35,7 @@ public class RancheriaActivity extends AppCompatActivity {
         //ListView lista =  (ListView)findViewById(R.id.listarancherias);
         load = (FloatingActionButton) findViewById(R.id.load);
         tmp = new ArrayList<>();
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.nueva);
         fab.setOnClickListener(new View.OnClickListener() {
             public ArrayList<Rancheria> rancherias = new ArrayList<>();

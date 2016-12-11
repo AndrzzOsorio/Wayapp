@@ -12,13 +12,23 @@ import java.util.ArrayList;
 public class Rancheria implements Serializable {
     private String id;
     private String nombre;
-    private ArrayList<LatLng> delimitacion;
+    private ArrayList<Punto> delimitacion;
+    private ArrayList<Punto> acceso;
+    private ArrayList<Casa> casas;
+    private ArrayList<Escuela> escuelas;
+    private ArrayList<Corral> corrales;
+    private ArrayList<Cultivo> cultivos;
     private ArrayList<Elemento> elementos;
 
     public Rancheria(String id, String nombre){
         this.setId(id);
         this.nombre = nombre;
-
+        delimitacion = new ArrayList<>();
+        acceso = new ArrayList<>();
+        casas = new ArrayList<>();
+        escuelas = new ArrayList<>();
+        corrales = new ArrayList<>();
+        cultivos = new ArrayList<>();
     }
 
     public String getId() {
@@ -37,11 +47,11 @@ public class Rancheria implements Serializable {
         this.nombre = nombre;
     }
 
-    public ArrayList<LatLng> getDelimitacion() {
+    public ArrayList<Punto> getDelimitacion() {
         return delimitacion;
     }
 
-    public void setDelimitacion(ArrayList<LatLng> delimitacion) {
+    public void setDelimitacion(ArrayList<Punto> delimitacion) {
         this.delimitacion = delimitacion;
     }
 
@@ -51,5 +61,45 @@ public class Rancheria implements Serializable {
 
     public void setElementos(ArrayList<Elemento> elementos) {
         this.elementos = elementos;
+    }
+
+    public ArrayList<Punto> getAcceso() {
+        return acceso;
+    }
+
+    public void setAcceso(ArrayList<Punto> acceso) {
+        this.acceso = acceso;
+    }
+
+    public ArrayList<Casa> getCasas() {
+        return casas;
+    }
+
+    public void setCasas(ArrayList<Casa> casas) {
+        this.casas = casas;
+    }
+
+    public ArrayList<Escuela> getEscuelas() {
+        return escuelas;
+    }
+
+    public void setEscuelas(ArrayList<Escuela> escuelas) {
+        this.escuelas = escuelas;
+    }
+
+    public ArrayList<Corral> getCorrales() {
+        return corrales;
+    }
+
+    public void setCorrales(ArrayList<Corral> corrales) {
+        this.corrales = corrales;
+    }
+
+    public ArrayList<Cultivo> getCultivos() {
+        return cultivos;
+    }
+
+    public void setCultivos(ArrayList<Cultivo> cultivos) {
+        this.cultivos = cultivos;
     }
 }

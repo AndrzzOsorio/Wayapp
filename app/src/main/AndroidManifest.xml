@@ -47,9 +47,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Objetoactivity" />
         <activity android:name=".CasaActivity" />
-        <activity android:name=".EducativoActivity" />
-        <activity android:name=".CorralActivity" />
-        <activity android:name=".CultivoActivity"></activity>
     </application>
 
 </manifest>
