@@ -33,31 +33,6 @@
         android:layout_alignLeft="@+id/txtAnimal"
         android:layout_alignStart="@+id/txtAnimal" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:ems="10"
-        android:id="@+id/txtAnimal"
-        android:layout_above="@+id/lblcantidad"
-        android:layout_alignLeft="@+id/lblanimal"
-        android:layout_alignStart="@+id/lblanimal"
-        android:layout_marginBottom="26dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:text="Animal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="19dp"
-        android:layout_marginStart="19dp"
-        android:id="@+id/lblanimal"
-        android:layout_above="@+id/txtAnimal"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="36dp" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -77,5 +52,23 @@
         android:layout_marginBottom="53dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/lblcantidad"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="41dp"
+        android:id="@+id/spinneranimal" />
+
+    <TextView
+        android:text="Animal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblanimal"
+        android:layout_marginBottom="36dp"
+        android:layout_above="@+id/spinneranimal"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

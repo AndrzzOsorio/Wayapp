@@ -33,11 +33,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -56,6 +58,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
@@ -85,8 +88,6 @@ public class NavigationActivity extends AppCompatActivity
 
 //controles casa
     Button agregarc;
-    EditText materialcasa;
-    EditText cantidadhabitantescasa;
     EditText cantidadhabitacionescasa;
     EditText observacion;
     CheckBox cocina;
@@ -94,17 +95,15 @@ public class NavigationActivity extends AppCompatActivity
     //Controles escuela
     EditText nombreescuela;
     EditText cantidadestudiantes;
-    EditText materialescuela;
     Button agregarE;
 
     //controles corral
-    EditText animal;
+
     EditText cantidadanimales;
     Button agregarco;
 
     //controles cultivo
     EditText dueno;
-    EditText fruto;
     EditText area;
     Button agregarcu;
 
@@ -157,26 +156,94 @@ public class NavigationActivity extends AppCompatActivity
 
         //definicion de los controles de la casa
         agregarc = (Button) findViewById(R.id.btnagregarC);
-        materialcasa = (EditText) findViewById(R.id.txtMaterialcasa);
+        List<String> spinnerArraycasa =  new ArrayList<String>();
+        spinnerArraycasa.add("Madera");
+        spinnerArraycasa.add("Arcilla");
+        spinnerArraycasa.add("Jaguey");
+        spinnerArraycasa.add("Guadua");
+        spinnerArraycasa.add("Ladrillo");
+        ArrayAdapter<String> adaptercasa = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, spinnerArraycasa);
+
+        adaptercasa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        List<String> spinnerArrayhabitantes =  new ArrayList<String>();
+        spinnerArrayhabitantes.add("1");
+        spinnerArrayhabitantes.add("2");
+        spinnerArrayhabitantes.add("3");
+        spinnerArrayhabitantes.add("4");
+        spinnerArrayhabitantes.add("5");
+        spinnerArrayhabitantes.add("6");
+        spinnerArrayhabitantes.add("7");
+        spinnerArrayhabitantes.add("8");
+        spinnerArrayhabitantes.add("9");
+        spinnerArrayhabitantes.add("10");
+        ArrayAdapter<String> adapterhabitantes = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, spinnerArrayhabitantes);
+
+        adaptercasa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        final Spinner sItemscasa = (Spinner) findViewById(R.id.spinnermaterialcasa);
+        final Spinner sItemhabitantes = (Spinner) findViewById(R.id.spinnercantidadpersonas);
+        sItemscasa.setAdapter(adaptercasa);
+        sItemhabitantes.setAdapter(adapterhabitantes);
+
         cantidadhabitacionescasa= (EditText) findViewById(R.id.txtcantidadh);
-        cantidadhabitantescasa = (EditText) findViewById(R.id.txtCantidadP);
+
         observacion = (EditText) findViewById(R.id.observaciones);
         cocina = (CheckBox) findViewById(R.id.cbcocina);
 
         //definicion de los controles de la escuela
-        materialescuela = (EditText) findViewById(R.id.txtMaterialC);
+        List<String> spinnerArrayescuela =  new ArrayList<String>();
+        spinnerArrayescuela.add("Madera");
+        spinnerArrayescuela.add("Arcilla");
+        spinnerArrayescuela.add("Jaguey");
+        spinnerArrayescuela.add("Guadua");
+        spinnerArrayescuela.add("Ladrillo");
+        ArrayAdapter<String> adapterescuela = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, spinnerArrayescuela);
+
+        adapterescuela.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        final Spinner sItemmaterialescuela = (Spinner) findViewById(R.id.spinnermaterialescuela);
+        sItemmaterialescuela.setAdapter(adapterescuela);
+
         nombreescuela = (EditText) findViewById(R.id.txtnombre);
         cantidadestudiantes = (EditText) findViewById(R.id.txtcantidadEst);
         agregarE = (Button) findViewById(R.id.btnAgregarE);
 
         //definicion de los controles del corral
-        animal = (EditText) findViewById(R.id.txtAnimal);
+        List<String> spinnerArrayanimal =  new ArrayList<String>();
+        spinnerArrayanimal.add("Chivo");
+        spinnerArrayanimal.add("Cabra");
+        spinnerArrayanimal.add("Oveja");
+        spinnerArrayanimal.add("Vaca");
+        spinnerArrayanimal.add("Caballo");
+        spinnerArrayanimal.add("Cerdo");
+        spinnerArrayanimal.add("Gallina");
+        spinnerArrayanimal.add("Pato");
+        ArrayAdapter<String> adapteranimal = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, spinnerArrayanimal);
+
+        adapteranimal.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        final Spinner sIanimal = (Spinner) findViewById(R.id.spinneranimal);
+        sIanimal.setAdapter(adapteranimal);
         cantidadanimales= (EditText) findViewById(R.id.txtcantidadA);
         agregarco = (Button) findViewById(R.id.btnagregarAnimal);
 
         //definicion de los controles del cultivo
+        List<String> spinnerArrayfruto =  new ArrayList<String>();
+        spinnerArrayfruto.add("Frijol");
+        spinnerArrayfruto.add("Habichuela");
+        spinnerArrayfruto.add("Papa");
+        spinnerArrayfruto.add("Platano");
+
+        ArrayAdapter<String> adapterfruto = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, spinnerArrayfruto);
+
+        adapterfruto.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        final Spinner sIfruto = (Spinner) findViewById(R.id.spinnerfruto);
+        sIfruto.setAdapter(adapterfruto);
         dueno = (EditText) findViewById(R.id.txtdueno);
-        fruto = (EditText) findViewById(R.id.txtfrutos);
         area = (EditText) findViewById(R.id.txtAreaC);
         agregarcu = (Button) findViewById(R.id.btnagregarcultivo);
 
@@ -378,9 +445,9 @@ public class NavigationActivity extends AppCompatActivity
 
                     Casa c = null;
                     if(cocina.isChecked()){
-                        c = new Casa(location.getLatitude(),location.getLongitude(),materialcasa.getText().toString(),"Si tiene",cantidadhabitacionescasa.getText().toString(),cantidadhabitantescasa.getText().toString(),observacion.getText().toString());
+                        c = new Casa(location.getLatitude(),location.getLongitude(),sItemscasa.getSelectedItem().toString(),"Si tiene",cantidadhabitacionescasa.getText().toString(),sItemhabitantes.getSelectedItem().toString(),observacion.getText().toString());
                     }else{
-                        c = new Casa(location.getLatitude(),location.getLongitude(),materialcasa.getText().toString(),"No tiene",cantidadhabitacionescasa.getText().toString(),cantidadhabitantescasa.getText().toString(),observacion.getText().toString());
+                        c = new Casa(location.getLatitude(),location.getLongitude(),sItemscasa.getSelectedItem().toString(),"No tiene",cantidadhabitacionescasa.getText().toString(),sItemhabitantes.getSelectedItem().toString(),observacion.getText().toString());
                     }
 
               casas.add(c);
@@ -389,8 +456,8 @@ public class NavigationActivity extends AppCompatActivity
               }
                 casalayout.setVisibility(View.INVISIBLE);
                 supportMapFragment.getView().setVisibility(View.VISIBLE);
-                    materialcasa.setText("");
-                    cantidadhabitantescasa.setText("");
+
+
                     cantidadhabitacionescasa.setText("");
                     observacion.setText("");
                 }
@@ -412,7 +479,7 @@ public class NavigationActivity extends AppCompatActivity
                     flag = 0;
                 }
                 if(flag ==1) {
-                    Escuela e = new Escuela(location.getLatitude(), location.getLongitude(), materialescuela.getText().toString(), cantidadestudiantes.getText().toString(), nombreescuela.getText().toString());
+                    Escuela e = new Escuela(location.getLatitude(), location.getLongitude(), sItemmaterialescuela.getSelectedItem().toString(), cantidadestudiantes.getText().toString(), nombreescuela.getText().toString());
                     escuelas.add(e);
                     for (int i = 0; i < escuelas.size(); i++) {
                         setMarkerEscuela(new LatLng(escuelas.get(i).getLatitud(), escuelas.get(i).getLongitud()), "Centro Educativo", escuelas.get(i).ToInformation());
@@ -422,7 +489,7 @@ public class NavigationActivity extends AppCompatActivity
 
                     nombreescuela.setText("");
                     cantidadestudiantes.setText("");
-                    materialescuela.setText("");
+
                 }
             }
 
@@ -442,14 +509,13 @@ public class NavigationActivity extends AppCompatActivity
                     flag = 0;
                 }
                 if(flag ==1){
-               Corral co = new Corral(location.getLatitude(),location.getLongitude(),animal.getText().toString(),cantidadanimales.getText().toString());
+               Corral co = new Corral(location.getLatitude(),location.getLongitude(),sIanimal.getSelectedItem().toString(),cantidadanimales.getText().toString());
                corrales.add(co);
                 for (int i = 0; i<corrales.size();i++){
                     setMarkerCorral(new LatLng(corrales.get(i).getLatitud(),corrales.get(i).getLongitud()),"Corral ganadero",corrales.get(i).ToInformation());
                 }
                 corrallayout.setVisibility(View.INVISIBLE);
                 supportMapFragment.getView().setVisibility(View.VISIBLE);
-                    animal.setText("");
                     cantidadanimales.setText("");
                 }
             }
@@ -469,7 +535,7 @@ public class NavigationActivity extends AppCompatActivity
                     flag = 0;
                 }
                 if(flag ==1){
-               Cultivo cu = new Cultivo(location.getLatitude(),location.getLongitude(),dueno.getText().toString(),fruto.getText().toString(),area.getText().toString());
+               Cultivo cu = new Cultivo(location.getLatitude(),location.getLongitude(),dueno.getText().toString(),sIanimal.getSelectedItem().toString(),area.getText().toString());
                 cultivos.add(cu);
                 for (int i = 0; i<cultivos.size();i++){
                     setMarkerCultivo(new LatLng(cultivos.get(i).getLatitud(),cultivos.get(i).getLongitud()),"Cultivo agricola",cultivos.get(i).ToInformation());
@@ -477,7 +543,6 @@ public class NavigationActivity extends AppCompatActivity
                 cultivolayout.setVisibility(View.INVISIBLE);
                 supportMapFragment.getView().setVisibility(View.VISIBLE);
                     dueno.setText("");
-                    fruto.setText("");
                     area.setText("");
                 }
             }

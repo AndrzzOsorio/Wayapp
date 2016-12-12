@@ -22,47 +22,6 @@
         android:textAlignment="center" />
 
     <TextView
-        android:text="Area"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lblArea"
-        android:layout_below="@+id/txtfrutos"
-        android:layout_alignLeft="@+id/txtfrutos"
-        android:layout_alignStart="@+id/txtfrutos"
-        android:layout_marginTop="26dp" />
-
-    <Button
-        android:text="Agregar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtAreaC"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:id="@+id/btnagregarcultivo" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:id="@+id/txtfrutos"
-        android:inputType="text"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/lblCultivoFruto"
-        android:layout_alignStart="@+id/lblCultivoFruto"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:text="Fruto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:id="@+id/lblCultivoFruto"
-        android:layout_below="@+id/txtdueno"
-        android:layout_alignLeft="@+id/txtdueno"
-        android:layout_alignStart="@+id/txtdueno" />
-
-    <TextView
         android:text="Dueño"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -73,30 +32,71 @@
         android:layout_alignLeft="@+id/txtdueno"
         android:layout_alignStart="@+id/txtdueno" />
 
+    <Button
+        android:text="Agregar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnagregarcultivo"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/textView8"
+        android:layout_alignEnd="@+id/textView8"
+        android:layout_marginRight="47dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginBottom="27dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/txtAreaC"
+        android:inputType="number"
+        android:hint="Metros Cuadrados"
+        android:layout_above="@+id/btnagregarcultivo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="24dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="Area"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblArea"
+        android:layout_above="@+id/txtAreaC"
+        android:layout_alignRight="@+id/lblCultivoNombre"
+        android:layout_alignEnd="@+id/lblCultivoNombre"
+        android:layout_marginBottom="16dp" />
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:layout_marginTop="23dp"
         android:id="@+id/txtdueno"
+        android:layout_marginTop="32dp"
         android:layout_below="@+id/lblCultivoNombre"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <EditText
+    <TextView
+        android:text="Fruto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_marginTop="19dp"
-        android:id="@+id/txtAreaC"
-        android:inputType="number"
-        android:hint="Metros Cuadrados"
-        android:layout_below="@+id/lblArea"
+        android:id="@+id/lblCultivoFruto"
+        android:layout_above="@+id/spinnerfruto"
+        android:layout_alignLeft="@+id/lblArea"
+        android:layout_alignStart="@+id/lblArea"
+        android:layout_marginBottom="51dp" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerfruto"
+        android:layout_marginBottom="39dp"
+        android:layout_above="@+id/lblArea"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
