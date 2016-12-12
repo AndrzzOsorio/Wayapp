@@ -81,6 +81,7 @@ public class NavigationActivity extends AppCompatActivity
     View escuelalayout;
     View corrallayout;
     View cultivolayout;
+    View encuestalayout;
 
 //controles casa
     Button agregarc;
@@ -144,6 +145,8 @@ public class NavigationActivity extends AppCompatActivity
         escuelalayout =  findViewById(R.id.escuelalayout);
         corrallayout = findViewById(R.id.corrallayout);
         cultivolayout = findViewById(R.id.cultivolayout);
+        encuestalayout = findViewById(R.id.encuestalayout);
+
 
         delimitar = (FloatingActionButton) findViewById(R.id.delimitar);
         encuesta = (FloatingActionButton) findViewById(R.id.encuesta);
@@ -608,6 +611,19 @@ public class NavigationActivity extends AppCompatActivity
             supportMapFragment.getView().setVisibility(View.INVISIBLE);
 
         }
+        else if (id == R.id.aencuesta) {
+            delimitar.setVisibility(View.INVISIBLE);
+            delimitarfin.setVisibility(View.INVISIBLE);
+            encuestalayout.setVisibility(View.VISIBLE);
+            acceso.setVisibility(View.INVISIBLE);
+            loadn.setVisibility(View.INVISIBLE);
+            casalayout.setVisibility(View.INVISIBLE);
+            escuelalayout.setVisibility(View.INVISIBLE);
+            corrallayout.setVisibility(View.INVISIBLE);
+            cultivolayout.setVisibility(View.INVISIBLE);
+            supportMapFragment.getView().setVisibility(View.INVISIBLE);
+
+        }
         else if (id == R.id.refrescar) {
             delimitar.setVisibility(View.INVISIBLE);
             delimitarfin.setVisibility(View.INVISIBLE);
@@ -621,6 +637,7 @@ public class NavigationActivity extends AppCompatActivity
             supportMapFragment.getView().setVisibility(View.VISIBLE);
 
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

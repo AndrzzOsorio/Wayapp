@@ -104,6 +104,10 @@
         android:id="@+id/cultivolayout"
         android:visibility="invisible"
         ></include>
+    <include layout="@layout/activity_encuesta"
+        android:id="@+id/encuestalayout"
+        android:visibility="invisible"
+        ></include>
 
 
 </RelativeLayout>

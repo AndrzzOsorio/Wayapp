@@ -43,7 +43,7 @@
         <item android:title="Encuestas">
             <menu>
                 <item
-                    android:id="@+id/encuesta"
+                    android:id="@+id/aencuesta"
                     android:icon="@drawable/ic_menu_gallery"
                     android:title="Encuesta" />
                 <item
