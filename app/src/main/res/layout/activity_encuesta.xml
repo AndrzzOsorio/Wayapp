@@ -55,13 +55,13 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
         android:ems="10"
         android:layout_marginTop="11dp"
         android:id="@+id/encCedula"
         android:layout_below="@+id/lblCedula"
         android:layout_alignLeft="@+id/lblCedula"
-        android:layout_alignStart="@+id/lblCedula" />
+        android:layout_alignStart="@+id/lblCedula"
+        android:inputType="number" />
 
     <TextView
         android:text="Edad"
@@ -78,13 +78,13 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
         android:ems="10"
         android:layout_marginTop="11dp"
         android:id="@+id/encEdad"
         android:layout_below="@+id/lblEdad"
         android:layout_alignLeft="@+id/lblEdad"
-        android:layout_alignStart="@+id/lblEdad" />
+        android:layout_alignStart="@+id/lblEdad"
+        android:inputType="number" />
 
     <TextView
         android:text="Telefono"
@@ -101,13 +101,13 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
         android:ems="10"
         android:layout_marginTop="11dp"
         android:id="@+id/encTelefono"
         android:layout_below="@+id/lblTelefono"
         android:layout_alignLeft="@+id/lblTelefono"
-        android:layout_alignStart="@+id/lblTelefono" />
+        android:layout_alignStart="@+id/lblTelefono"
+        android:inputType="number" />
 
     <TextView
         android:text="Genero"
@@ -182,6 +182,21 @@
         android:layout_alignLeft="@+id/lblDescripcion"
         android:layout_alignStart="@+id/lblDescripcion"
         android:layout_height="200px" />
+
+        <Button
+            android:text="Aceptar"
+            android:id="@+id/btnEncuesta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textSize="16sp"
+            android:textColor="@android:color/holo_blue_light"
+            android:layout_below="@+id/encDescripcion"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="12dp"
+            android:layout_alignLeft="@+id/encDescripcion"
+            android:layout_alignStart="@+id/encDescripcion" />
 
     </RelativeLayout>
 
