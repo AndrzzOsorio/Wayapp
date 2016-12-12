@@ -268,7 +268,7 @@ public class NavigationActivity extends AppCompatActivity
         encedad = (EditText) findViewById(R.id.encEdad);
         encdescripcion = (EditText) findViewById(R.id.encDescripcion);
         encgenero = (EditText) findViewById(R.id.encGenero);
-        agregarencu = (Button) findViewById(R.id.btnEncuesta);
+        agregarencu = (Button) findViewById(R.id.encuesta);
 
 
         //metodo para la geolocalizacion
