@@ -22,6 +22,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.text.Layout;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -108,10 +109,21 @@ public class NavigationActivity extends AppCompatActivity
     EditText area;
     Button agregarcu;
 
+    //controles encuesta
+    EditText encnombre;
+    EditText enccedula;
+    EditText encedad;
+    EditText encgenero;
+    EditText enctelefono;
+    EditText enccargo;
+    EditText encdescripcion;
+    Button agregarencu;
+
     ArrayList<Casa> casas;
     ArrayList<Escuela> escuelas;
     ArrayList<Cultivo> cultivos;
     ArrayList<Corral> corrales;
+    ArrayList<encuesta> encuestas;
 
 
     @Override
@@ -139,6 +151,7 @@ public class NavigationActivity extends AppCompatActivity
         escuelas = new ArrayList<>();
         cultivos = new ArrayList<>();
         corrales = new ArrayList<>();
+        encuestas = new ArrayList<>();
 
         //paneles de vistas
         casalayout =  findViewById(R.id.casalayout);
@@ -179,6 +192,17 @@ public class NavigationActivity extends AppCompatActivity
         fruto = (EditText) findViewById(R.id.txtfrutos);
         area = (EditText) findViewById(R.id.txtAreaC);
         agregarcu = (Button) findViewById(R.id.btnagregarcultivo);
+
+        //definicion de los controles de la encuesta
+        encnombre = (EditText) findViewById(R.id.encNombre);
+        enccedula = (EditText) findViewById(R.id.encCedula);
+        enccargo = (EditText) findViewById(R.id.encCargo);
+        enctelefono = (EditText) findViewById(R.id.encTelefono);
+        encedad = (EditText) findViewById(R.id.encEdad);
+        encdescripcion = (EditText) findViewById(R.id.encDescripcion);
+        encgenero = (EditText) findViewById(R.id.encGenero);
+        agregarencu = (Button) findViewById(R.id.btnEncuesta);
+
 
         //metodo para la geolocalizacion
         final LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -483,6 +507,27 @@ public class NavigationActivity extends AppCompatActivity
             }
         });
 
+        agregarencu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                    encuesta Encuesta = new encuesta(encnombre.getText().toString(),enccedula.getText().toString(),encedad.getText().toString(),enctelefono.getText().toString(),encgenero.getText().toString(),enccargo.getText().toString(),encdescripcion.getText().toString());
+                    encuestas.add(Encuesta);
+                    Log.i("Encuesta",Encuesta.ImprimirEncuesta());
+                    encuestalayout.setVisibility(View.INVISIBLE);
+                    supportMapFragment.getView().setVisibility(View.VISIBLE);
+                    encnombre.setText("");
+                    enccedula.setText("");
+                    enccargo.setText("");
+                    enctelefono.setText("");
+                    encedad.setText("");
+                    encdescripcion.setText("");
+                    encgenero.setText("");
+
+            }
+        });
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -541,7 +586,7 @@ public class NavigationActivity extends AppCompatActivity
         if (id == R.id.delimitacion) {
             delimitar.setVisibility(View.VISIBLE);
             delimitarfin.setVisibility(View.VISIBLE);
-            encuesta.setVisibility(View.INVISIBLE);
+            encuestalayout.setVisibility(View.INVISIBLE);
             acceso.setVisibility(View.INVISIBLE);
             loadn.setVisibility(View.INVISIBLE);
             casalayout.setVisibility(View.INVISIBLE);
@@ -553,7 +598,7 @@ public class NavigationActivity extends AppCompatActivity
         } else if (id == R.id.fin_delimitacion) {
             delimitar.setVisibility(View.INVISIBLE);
             delimitarfin.setVisibility(View.INVISIBLE);
-            encuesta.setVisibility(View.INVISIBLE);
+            encuestalayout.setVisibility(View.INVISIBLE);
             acceso.setVisibility(View.VISIBLE);
             loadn.setVisibility(View.VISIBLE);
             casalayout.setVisibility(View.INVISIBLE);
@@ -565,7 +610,7 @@ public class NavigationActivity extends AppCompatActivity
         } else if (id == R.id.acasa) {
             delimitar.setVisibility(View.INVISIBLE);
             delimitarfin.setVisibility(View.INVISIBLE);
-            encuesta.setVisibility(View.INVISIBLE);
+            encuestalayout.setVisibility(View.INVISIBLE);
             acceso.setVisibility(View.INVISIBLE);
             loadn.setVisibility(View.INVISIBLE);
             casalayout.setVisibility(View.VISIBLE);
@@ -577,7 +622,7 @@ public class NavigationActivity extends AppCompatActivity
         } else if (id == R.id.aescuela) {
             delimitar.setVisibility(View.INVISIBLE);
             delimitarfin.setVisibility(View.INVISIBLE);
-            encuesta.setVisibility(View.INVISIBLE);
+            encuestalayout.setVisibility(View.INVISIBLE);
             acceso.setVisibility(View.INVISIBLE);
             loadn.setVisibility(View.INVISIBLE);
             casalayout.setVisibility(View.INVISIBLE);
@@ -589,7 +634,7 @@ public class NavigationActivity extends AppCompatActivity
         } else if (id == R.id.acorral) {
             delimitar.setVisibility(View.INVISIBLE);
             delimitarfin.setVisibility(View.INVISIBLE);
-            encuesta.setVisibility(View.INVISIBLE);
+            encuestalayout.setVisibility(View.INVISIBLE);
             acceso.setVisibility(View.INVISIBLE);
             loadn.setVisibility(View.INVISIBLE);
             casalayout.setVisibility(View.INVISIBLE);
@@ -601,7 +646,7 @@ public class NavigationActivity extends AppCompatActivity
         } else if (id == R.id.acultivo) {
             delimitar.setVisibility(View.INVISIBLE);
             delimitarfin.setVisibility(View.INVISIBLE);
-            encuesta.setVisibility(View.INVISIBLE);
+            encuestalayout.setVisibility(View.INVISIBLE);
             acceso.setVisibility(View.INVISIBLE);
             loadn.setVisibility(View.INVISIBLE);
             casalayout.setVisibility(View.INVISIBLE);
@@ -627,7 +672,7 @@ public class NavigationActivity extends AppCompatActivity
         else if (id == R.id.refrescar) {
             delimitar.setVisibility(View.INVISIBLE);
             delimitarfin.setVisibility(View.INVISIBLE);
-            encuesta.setVisibility(View.INVISIBLE);
+            encuestalayout.setVisibility(View.INVISIBLE);
             acceso.setVisibility(View.INVISIBLE);
             loadn.setVisibility(View.INVISIBLE);
             casalayout.setVisibility(View.INVISIBLE);
