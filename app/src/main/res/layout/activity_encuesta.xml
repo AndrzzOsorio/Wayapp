@@ -120,19 +120,41 @@
         android:layout_below="@+id/encTelefono"
         android:layout_alignLeft="@+id/encTelefono"
         android:layout_alignStart="@+id/encTelefono" />
-
-    <EditText
+    <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_marginTop="11dp"
-        android:id="@+id/encGenero"
         android:layout_below="@+id/lblGenero"
         android:layout_alignLeft="@+id/lblGenero"
-        android:layout_alignStart="@+id/lblGenero" />
+        android:layout_alignStart="@+id/lblGenero"
+        android:id="@+id/encGenero">
+        <RadioButton
+            android:text="F"
+            android:layout_width="200px"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textSize="12sp"
+            android:textColor="@android:color/holo_blue_light"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:layout_marginTop="6dp"
+            android:id="@+id/encFemenino"
 
-    <TextView
+             />
+        <RadioButton
+            android:text="M"
+            android:layout_width="200px"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textSize="12sp"
+            android:textColor="@android:color/holo_blue_light"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/encMasculino"
+            android:layout_toRightOf="@+id/lblDescripcion"
+            android:layout_toEndOf="@+id/lblDescripcion" />
+
+    </RadioGroup>
+
+        <TextView
         android:text="Función/Cargo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -140,6 +162,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:textSize="16sp"
         android:textColor="@android:color/holo_blue_light"
+        android:layout_marginTop="18dp"
         android:layout_below="@+id/encGenero"
         android:layout_alignLeft="@+id/encGenero"
         android:layout_alignStart="@+id/encGenero" />
@@ -197,6 +220,9 @@
             android:layout_marginTop="12dp"
             android:layout_alignLeft="@+id/encDescripcion"
             android:layout_alignStart="@+id/encDescripcion" />
+
+
+
 
     </RelativeLayout>
 

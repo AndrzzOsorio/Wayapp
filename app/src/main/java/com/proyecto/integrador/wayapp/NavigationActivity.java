@@ -39,6 +39,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -113,7 +114,8 @@ public class NavigationActivity extends AppCompatActivity
     EditText encnombre;
     EditText enccedula;
     EditText encedad;
-    EditText encgenero;
+    RadioButton encfemenino;
+    RadioButton encmasculino;
     EditText enctelefono;
     EditText enccargo;
     EditText encdescripcion;
@@ -200,7 +202,8 @@ public class NavigationActivity extends AppCompatActivity
         enctelefono = (EditText) findViewById(R.id.encTelefono);
         encedad = (EditText) findViewById(R.id.encEdad);
         encdescripcion = (EditText) findViewById(R.id.encDescripcion);
-        encgenero = (EditText) findViewById(R.id.encGenero);
+        encfemenino = (RadioButton) findViewById(R.id.encFemenino);
+        encmasculino = (RadioButton) findViewById(R.id.encMasculino);
         agregarencu = (Button) findViewById(R.id.btnEncuesta);
 
 
@@ -510,9 +513,15 @@ public class NavigationActivity extends AppCompatActivity
         agregarencu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String genero = "";
+                if(encfemenino.isChecked()){
+                    genero = "Femenino";
+                }
+                if(encmasculino.isChecked()){
+                    genero = "Masculino";
+                }
 
-
-                    encuesta Encuesta = new encuesta(encnombre.getText().toString(),enccedula.getText().toString(),encedad.getText().toString(),enctelefono.getText().toString(),encgenero.getText().toString(),enccargo.getText().toString(),encdescripcion.getText().toString());
+                    encuesta Encuesta = new encuesta(encnombre.getText().toString(),enccedula.getText().toString(),encedad.getText().toString(),enctelefono.getText().toString(),genero,enccargo.getText().toString(),encdescripcion.getText().toString());
                     encuestas.add(Encuesta);
                     Log.i("Encuesta",Encuesta.ImprimirEncuesta());
                     encuestalayout.setVisibility(View.INVISIBLE);
@@ -523,8 +532,8 @@ public class NavigationActivity extends AppCompatActivity
                     enctelefono.setText("");
                     encedad.setText("");
                     encdescripcion.setText("");
-                    encgenero.setText("");
-
+                    encfemenino.setChecked(false);
+                    encfemenino.setChecked(false);
             }
         });
 
