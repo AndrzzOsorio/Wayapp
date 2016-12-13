@@ -12,8 +12,8 @@ import java.util.Map;
  */
 
 public class NavigationRequest extends StringRequest {
-    private static final String NAVIGATION_REQUEST_URL1="http://192.168.1.76:8080/WayAppServidor/rest/RegistrarPuntos";
-    private static final String NAVIGATION_REQUEST_URL2="http://192.168.1.76:8080/WayAppServidor/rest/Obtenerpuntos";
+    private static final String NAVIGATION_REQUEST_URL1="http://192.168.1.53:8080/WayAppServer/rest/RegistrarPuntos";
+    private static final String NAVIGATION_REQUEST_URL2="http://192.168.1.53:8080/WayAppServer/rest/ConsultarPuntos";
     private static final String NAVIGATION_REQUEST_URL3="http://192.168.1.76:8080/WayAppServidor/rest/Registrarcamino";
     Map<String,String> params;
 

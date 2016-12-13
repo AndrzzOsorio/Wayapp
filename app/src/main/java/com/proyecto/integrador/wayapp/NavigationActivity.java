@@ -55,6 +55,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -70,7 +71,7 @@ public class NavigationActivity extends AppCompatActivity
     ArrayList<Punto> puntos = new ArrayList<>();
     ArrayList<Punto> via = new ArrayList<>();
     FloatingActionButton delimitar;
-
+    ArrayList<Punto> puntosjson;
     FloatingActionButton encuesta;
     FloatingActionButton delimitarfin;
     FloatingActionButton acceso;
@@ -86,6 +87,7 @@ public class NavigationActivity extends AppCompatActivity
     View corrallayout;
     View cultivolayout;
     View encuestalayout;
+    FloatingActionButton consultarpuntos;
 
 //controles casa
     Button agregarc;
@@ -135,16 +137,16 @@ public class NavigationActivity extends AppCompatActivity
                 .findFragmentById(R.id.map);
 
         supportMapFragment.getMapAsync(this);
-
-
+        consultarpuntos = (FloatingActionButton) findViewById(R.id.cargarpuntos);
+        final ArrayList<Punto> prueba = new ArrayList<>();
         Intent intent = getIntent();
-       /* prueba.add(new Punto(5.049300019378771,-75.47945895851801,"descripcion"));
+        prueba.add(new Punto(5.049300019378771,-75.47945895851801,"descripcion"));
         prueba.add(new Punto(5.049255319484387,-75.47953471146438,"descripcion1"));
         prueba.add(new Punto(5.049186817507857,-75.47945895851801,"descripcion2"));
-        prueba.add(new Punto(5.049300019378771,-75.47945895851801,"descripcion"));*/
+        prueba.add(new Punto(5.049300019378771,-75.47945895851801,"descripcion"));
 
         r = (Rancheria) intent.getSerializableExtra("rancheria");
-
+        puntosjson = new ArrayList<>();
       //  Listas de elementos que pertenecen a las rancherias
         casas = new ArrayList<>();
         escuelas = new ArrayList<>();
@@ -287,6 +289,36 @@ public class NavigationActivity extends AppCompatActivity
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) localizacion);
 
+        consultarpuntos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Response.Listener<String> listener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONArray JsonResponse = null;
+                        try {
+
+                            JsonResponse = new JSONArray(response);
+                            for(int i = 0;i<JsonResponse.length();i++){
+                                JSONObject row = JsonResponse.getJSONObject(i);
+                                puntosjson.add(new Punto(Double.parseDouble(row.getString("latitud")),Double.parseDouble(row.getString("longitud")),row.getString("informacion_adicional")));
+                                setMarkerRed(new LatLng(Double.parseDouble(row.getString("latitud")),Double.parseDouble(row.getString("longitud"))),row.getString("informacion_adicional"),"");
+                            }
+                            if(!puntosjson.isEmpty()){
+                            BuiltPolylone(toLatlong(puntosjson));}
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                NavigationRequest request = new NavigationRequest(listener,r.getId());
+                RequestQueue queue = Volley.newRequestQueue(NavigationActivity.this);
+                queue.add(request);
+            }
+        });
+
         caminofin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -310,7 +342,7 @@ public class NavigationActivity extends AppCompatActivity
                         }
                     }
                 };
-                NavigationRequest request = new NavigationRequest(listener,r.getId(),prueba);
+                NavigationRequest request = new NavigationRequest(listener,r.getId(),via);
                 RequestQueue queue = Volley.newRequestQueue(NavigationActivity.this);
                 queue.add(request);
 
@@ -401,7 +433,7 @@ public class NavigationActivity extends AppCompatActivity
                         }
                     }
                 };
-                try{
+                /*try{
 
                     lat=location.getLatitude();
                     lon=location.getLongitude();
@@ -411,15 +443,15 @@ public class NavigationActivity extends AppCompatActivity
                     AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this);
                     builder.setMessage("No se ha podido establecer conexion con el GPS, por favor dirijase a un lugar despejado y espere un momento").setNegativeButton("Continuar", null).create().show();
                     flag = 0;
-                }
-                if(flag == 1){
-                    puntos.add(puntos.get(0));
-                    BuiltPolylone(toLatlong(puntos));
+                }*/
+               // if(flag == 1){
+                   // puntos.add(puntos.get(0));
+                    BuiltPolylone(toLatlong(prueba));
                     lat=null;
                     lon=null;
-                }
+                //}
 
-                NavigationRequest request = new NavigationRequest(listener,puntos,r.getId());
+                NavigationRequest request = new NavigationRequest(listener,prueba,r.getId());
                 RequestQueue queue = Volley.newRequestQueue(NavigationActivity.this);
                 queue.add(request);
             }
@@ -604,6 +636,7 @@ public class NavigationActivity extends AppCompatActivity
         View header=navigationView.getHeaderView(0);
         TextView nombrerancheria = (TextView) header.findViewById(R.id.tvRancheria);
         nombrerancheria.setText("Rancheria "+r.getNombre());
+        consultarpuntos.performClick();
     }
 
     public void setLocation(Location loc){
@@ -1002,6 +1035,8 @@ public class NavigationActivity extends AppCompatActivity
         builder[0].show();
         return m_Text[0].toString();
     }
+
+
 
     private Bitmap getMarkerBitmapFromView(@DrawableRes int resId, int elemento) {
         View customMarkerView = null;
