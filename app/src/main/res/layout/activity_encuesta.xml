@@ -208,7 +208,7 @@
 
         <Button
             android:text="Aceptar"
-            android:id="@+id/btnEncuesta"
+            android:id="@+id/AceptarEncuesta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
