@@ -298,17 +298,21 @@ public class NavigationActivity extends AppCompatActivity
                 Response.Listener<String> listener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        JSONArray JsonResponse = null;
+                        JSONObject JsonResponse = null;
                         try {
+                            JsonResponse = new JSONObject(response);
+                            JSONArray jsonArray = (JSONArray) JsonResponse.get("deliminacion");
 
-                            JsonResponse = new JSONArray(response);
-                            for(int i = 0;i<JsonResponse.length();i++){
-                                JSONObject row = JsonResponse.getJSONObject(i);
+
+                            for(int i = 0;i<jsonArray.length();i++){
+                                JSONObject row = jsonArray.getJSONObject(i);
                                 puntosjson.add(new Punto(Double.parseDouble(row.getString("latitud")),Double.parseDouble(row.getString("longitud")),row.getString("informacion_adicional")));
                                 setMarkerRed(new LatLng(Double.parseDouble(row.getString("latitud")),Double.parseDouble(row.getString("longitud"))),row.getString("informacion_adicional"),"");
                             }
                             if(!puntosjson.isEmpty()){
-                            BuiltPolylone(toLatlong(puntosjson));}
+                            BuiltPolylone(toLatlong(puntosjson));
+
+                            }
 
 
                         } catch (JSONException e) {
@@ -436,7 +440,7 @@ public class NavigationActivity extends AppCompatActivity
                         }
                     }
                 };
-                /*try{
+                try{
 
                     lat=location.getLatitude();
                     lon=location.getLongitude();
@@ -446,15 +450,15 @@ public class NavigationActivity extends AppCompatActivity
                     AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this);
                     builder.setMessage("No se ha podido establecer conexion con el GPS, por favor dirijase a un lugar despejado y espere un momento").setNegativeButton("Continuar", null).create().show();
                     flag = 0;
-                }*/
-               // if(flag == 1){
-                   // puntos.add(puntos.get(0));
-                    BuiltPolylone(toLatlong(prueba));
+                }
+                if(flag == 1){
+                    puntos.add(puntos.get(0));
+                    BuiltPolylone(toLatlong(puntos));
                     lat=null;
                     lon=null;
-                //}
+                }
 
-                NavigationRequest request = new NavigationRequest(listener,prueba,r.getId());
+                NavigationRequest request = new NavigationRequest(listener,puntos,r.getId());
                 RequestQueue queue = Volley.newRequestQueue(NavigationActivity.this);
                 queue.add(request);
             }
@@ -477,7 +481,7 @@ public class NavigationActivity extends AppCompatActivity
                     flag = 0;
                 }
                 if(flag == 1){
-                    via.add(new Punto(location.getLatitude(),location.getLongitude(),""));
+                    via.add(new Punto(location.getLatitude(),location.getLongitude(),"punto camino"));
                     DrawRoad(via);
                 }
 

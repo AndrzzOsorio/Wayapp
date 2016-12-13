@@ -12,9 +12,10 @@ import java.util.Map;
  */
 
 public class NavigationRequest extends StringRequest {
-    private static final String NAVIGATION_REQUEST_URL1="http://192.168.1.53:8080/WayAppServer/rest/RegistrarPuntos";
-    private static final String NAVIGATION_REQUEST_URL2="http://192.168.1.53:8080/WayAppServer/rest/ConsultarPuntos";
-    private static final String NAVIGATION_REQUEST_URL3="http://192.168.1.76:8080/WayAppServidor/rest/Registrarcamino";
+    private static final String NAVIGATION_REQUEST_URL1="http://10.11.73.226:8080/WayAppServer/recursos/RegistrarPuntos";
+    private static final String NAVIGATION_REQUEST_URL2="http://10.11.73.226:8080/WayAppServer/recursos/ConsultarPuntos";
+    private static final String NAVIGATION_REQUEST_URL3="http://10.11.73.226:8080/WayAppServer/recursos/RegistrarPuntosCamino";
+
     Map<String,String> params;
 
     public NavigationRequest(Response.Listener<String> listener, ArrayList<Punto> puntos,String id) {
@@ -32,12 +33,11 @@ public class NavigationRequest extends StringRequest {
 
     }
 
-    public NavigationRequest(Response.Listener<String> listener,String id, ArrayList<Punto> puntos) {
-        super(Method.POST, NAVIGATION_REQUEST_URL3, listener, null);
+    public NavigationRequest(Response.Listener<String> listener,String id, ArrayList<Punto> punto) {
+        super(Method.POST, NAVIGATION_REQUEST_URL1, listener, null);
         params = new HashMap<>();
-        params.put("arreglo",arrayToJson(puntos,id));
-        params.put("tipo","acceso");
-
+        params.put("arreglo",arrayToJson(punto,id));
+        params.put("tipo","camino");
     }
 
 

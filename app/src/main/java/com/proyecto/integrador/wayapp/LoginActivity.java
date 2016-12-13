@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-/*
+
                         final String cedula = CedulaLogin.getText().toString();
                         final String clave = ClaveLogin.getText().toString();
                         Response.Listener<String> respoStringListener = new Response.Listener<String>() {
@@ -120,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
                         LoginRequest loginRequest = new LoginRequest(cedula, clave, respoStringListener);
                         RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                         queue.add(loginRequest);
-*/
+
 
 
                 guardarcredenciales();

@@ -14,8 +14,8 @@ import java.util.Map;
  * Created by Andres on 23/06/2016.
  */
 public class RancheriaRequest extends StringRequest {
-    private static final String RANCHERIA_REQUEST_URL1="http://192.168.1.53:8080/WayAppServer/rest/ConsultarRancherias";
-    private static final String RANCHERIA_REQUEST_URL2="http://192.168.1.53:8080/WayAppServer/rest/RegistrarRancheria";
+    private static final String RANCHERIA_REQUEST_URL1="http://10.11.73.226:8080/WayAppServer/recursos/ConsultarRancherias";
+    private static final String RANCHERIA_REQUEST_URL2="http://10.11.73.226:8080/WayAppServer/recursos/RegistrarRancheria";
      Map<String,String> params;
 
     public RancheriaRequest(Response.Listener<String> listener){
